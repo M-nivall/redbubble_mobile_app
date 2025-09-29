@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm your payment"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/price_Text"
+        android:textSize="22dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/edt_quantity2"
+        android:layout_width="match_parent"
+        android:inputType="text"
+        android:textColor="@color/colorBlack"
+        android:textAlignment="center"
+        android:hint ="Reference code/MpesaCode"
+        android:textStyle="bold"
+        android:layout_height="wrap_content" >
+        <requestFocus />
+
+    </EditText>
+
+
+</LinearLayout>

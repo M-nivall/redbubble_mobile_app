@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="6dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:elevation="6dp"
+        app:cardCornerRadius="12dp"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="12dp">
+
+            <!-- Product Image:
+                 - fitCenter shows the whole image
+                 - adjustViewBounds + wrap_content prevents cropping and giant height
+                 - maxHeight keeps it from growing too tall on tall images -->
+            <ImageView
+                android:id="@+id/image_c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxHeight="220dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_menu_gallery"
+                android:contentDescription="Product Image" />
+
+            <!-- Product Name -->
+            <TextView
+                android:id="@+id/txv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:text="Wedding T-shirts - Limited Edition"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Product Price -->
+            <TextView
+                android:id="@+id/txv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:fontFamily="sans-serif"
+                android:text="$25.00"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <!-- Quantity Selector -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_minus"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="-"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <!-- EDITTEXT so user can type quantity -->
+                <EditText
+                    android:id="@+id/edt_quantity"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:layout_marginHorizontal="6dp"
+                    android:background="@drawable/quantity_background"
+                    android:gravity="center"
+                    android:hint="1"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:singleLine="true"
+                    android:text="1"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:selectAllOnFocus="true" />
+
+                <Button
+                    android:id="@+id/btn_plus"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="+"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
+            <!-- Add to Cart Button -->
+            <Button
+                android:id="@+id/btn_quotation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/colorAccent"
+                android:text="Proceed To Quotation"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="bold" />
+
+            <!-- ProgressBar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.Varsani.Clients.CheckOut">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_card">
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressCheckout"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/layout_checkout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="75dp"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="1dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardElevation="8dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Personal details"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold|italic" />
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/txv_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Name"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/txv_phoneNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Phone No"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/txv_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="10dp"
+                            android:text="Email"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Choose Delivery"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold|italic" />
+
+                        <RadioGroup
+                            android:id="@+id/rbtn_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/rb_no_shipping"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="No Delivery" />
+
+                            <RadioButton
+                                android:id="@+id/rb_shipping"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Include Delivery" />
+                        </RadioGroup>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Order Summary"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold|italic" />
+
+                        <TextView
+                            android:id="@+id/txv_order_cost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Order cost"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txv_shiping_cost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Delivery cost"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txv_total_cost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="5dp"
+                            android:text="Total cost"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@android:color/black" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Deliver to:"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="County ">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_county"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint=" Town ">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_town"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <ProgressBar
+                                android:id="@+id/progressBarTown"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Address"
+                            android:paddingBottom="10dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_Address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/txv_selectpayment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Select Payment Method"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+                        <RadioGroup
+                            android:id="@+id/pay_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/bank"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Bank" />
+
+                            <RadioButton
+                                android:id="@+id/mpesa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mpesa" />
+                        </RadioGroup>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint=" Payment Reference code "
+                            android:paddingBottom="15dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edt_mpesaCode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </ScrollView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_bottom"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/btn_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="Confirm"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/purple"
+                app:cornerRadius = "50dp"
+                android:textColor="@color/colorWhite" />
+
+            <ProgressBar
+                android:id="@id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

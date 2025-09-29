@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Staff.Designer.DesignItems">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Client Details Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Client Details"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:padding="4dp"
+                        android:textColor="@color/colorBlack"
+                        android:background="@color/colorreceipt"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorBlack"
+                        android:layout_marginVertical="4dp"/>
+
+                    <TextView android:id="@+id/tv_orderID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Order ID: " />
+
+                    <TextView android:id="@+id/tv_clientName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Client Name: " />
+
+                    <TextView android:id="@+id/tv_county"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="County: "
+                        android:visibility="gone"/>
+
+                    <TextView android:id="@+id/tv_town"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Town: "
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Booking Details Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Booking Details"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:padding="4dp"
+                        android:textColor="@color/colorBlack"
+                        android:background="@color/colorreceipt" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorBlack"
+                        android:layout_marginVertical="4dp"/>
+
+                    <TextView android:id="@+id/tv_servName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Service Name: " />
+
+                    <TextView android:id="@+id/tv_businessName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Business Name: " />
+
+                    <TextView android:id="@+id/tv_serviceDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Service Description: " />
+
+                    <TextView android:id="@+id/tv_dimension"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dimension: " />
+
+                    <TextView android:id="@+id/tv_installationType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Installation Type: " />
+
+                    <TextView android:id="@+id/tv_expectedDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Expected Date: " />
+
+                    <TextView android:id="@+id/tv_bookingStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAccent"
+                        android:text="Status: " />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Input Details Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Input Details"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:padding="4dp"
+                        android:textColor="@color/colorBlack"
+                        android:background="@color/colorreceipt" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorBlack"
+                        android:layout_marginVertical="4dp"/>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@drawable/rounded_background"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:id="@+id/tv_inputType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorBlack"
+                            android:lineSpacingExtra="4dp"/>
+
+                    </ScrollView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="8dp">
+
+                        <Button
+                            android:id="@+id/btn_viewSketch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View Sketch" />
+
+                        <Button
+                            android:id="@+id/btn_viewLogo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View Logo"
+                            android:layout_marginStart="16dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Brand Design Upload Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Upload Brand Design"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:padding="4dp"
+                        android:textColor="@color/colorBlack"
+                        android:background="@color/colorreceipt"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorBlack"
+                        android:layout_marginVertical="4dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="8dp">
+                        <TextView
+                            android:id="@+id/tvSelectedFile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No file selected:"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorBlack"
+                            android:layout_marginBottom="8dp" />
+
+                        <Button
+                            android:id="@+id/btn_select_file"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Select File"
+                            android:layout_marginStart="16dp" />
+                        <Button
+                            android:id="@+id/btn_upload"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Upload"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:textColor="@color/white"
+                            android:layout_marginBottom="8dp" />
+                        <ProgressBar
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/progressBar"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

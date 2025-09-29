@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F5"
+    tools:context=".Clients.PaymentReceipt">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/receipt_background"
+        android:padding="24dp">
+        <ImageView
+            android:id="@+id/btn_printfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:contentDescription="print"
+            android:src="@drawable/ic_print" />
+
+        <!-- Company Information -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signs Evolution Limited"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#333"
+            android:layout_gravity="center"
+            android:paddingBottom="4dp"
+            android:fontFamily="sans-serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact: +254770064000"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="#555"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: Info@signsevolution.com"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="#555"
+            android:layout_gravity="center"
+            android:paddingBottom="16dp"
+            android:fontFamily="sans-serif"/>
+
+        <!-- Receipt Header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment Receipt"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#333"
+            android:layout_gravity="center"
+            android:paddingBottom="16dp"
+            android:fontFamily="sans-serif"/>
+
+        <!-- Receipt Number and Date in Horizontal Layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/receipt_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Receipt No: RD20-N0"
+                android:textSize="18sp"
+                android:textColor="#555"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:id="@+id/receipt_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date: "
+                android:textSize="18sp"
+                android:textColor="#555"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"/>
+        </LinearLayout>
+
+        <!-- Booking Details -->
+        <TextView
+            android:id="@+id/receipt_orderID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Booking ID: "
+            android:textSize="18sp"
+            android:textColor="#555"
+            android:fontFamily="sans-serif"/>
+
+        <TextView
+            android:id="@+id/receipt_clientName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Client Name: "
+            android:textSize="18sp"
+            android:textColor="#555"
+            android:fontFamily="sans-serif"/>
+
+        <TextView
+            android:id="@+id/txv_serviceType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Service Type: "
+            android:textSize="18sp"
+            android:textColor="#555"
+            android:fontFamily="sans-serif"/>
+
+        <TextView
+            android:id="@+id/txv_paymentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment Date: "
+            android:textSize="18sp"
+            android:textColor="#555"
+            android:fontFamily="sans-serif"/>
+
+        <TextView
+            android:id="@+id/txv_paymentCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment Code: "
+            android:textSize="18sp"
+            android:textColor="#555"
+            android:fontFamily="sans-serif"/>
+
+        <TextView
+            android:id="@+id/txv_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount: "
+            android:textSize="18sp"
+            android:textColor="#555"
+            android:fontFamily="sans-serif"/>
+
+        <!-- Footer Text -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thank you for your payment!"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="#777"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"/>
+
+    </LinearLayout>
+
+</ScrollView>

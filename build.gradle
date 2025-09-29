@@ -1,0 +1,22 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral() // use this instead of jcenter (jcenter is deprecated)
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:8.5.2" // updated Android Gradle Plugin
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+tasks.register("clean", Delete) {
+    delete(rootProject.buildDir)
+}

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F5"
+    tools:context=".Staff.ServMrg.ApproveCompletion">
+
+
+    <!-- CardView for Client Details -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewClientDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Client Details"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#333333" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#E0E0E0"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/textClientName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Client Name: "
+                android:textSize="16sp"
+                android:textColor="#444444"
+                android:paddingTop="10dp" />
+
+            <TextView
+                android:id="@+id/textAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address: "
+                android:textSize="16sp"
+                android:textColor="#444444"
+                android:paddingTop="6dp" />
+
+            <TextView
+                android:id="@+id/textCounty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="County: "
+                android:textSize="16sp"
+                android:textColor="#444444"
+                android:paddingTop="6dp" />
+
+            <TextView
+                android:id="@+id/textTown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Town: "
+                android:textSize="16sp"
+                android:textColor="#444444"
+                android:paddingTop="6dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView for Booking Details -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewBookingDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewClientDetails">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Booking Details"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#333333" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#E0E0E0"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/textOrderID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Booking ID: "
+                android:textSize="16sp"
+                android:textColor="#444444"
+                android:paddingTop="10dp" />
+
+            <TextView
+                android:id="@+id/textService"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service: "
+                android:textSize="16sp"
+                android:textColor="#444444"
+                android:paddingTop="6dp" />
+
+            <TextView
+                android:id="@+id/textDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date: "
+                android:textSize="16sp"
+                android:textColor="#444444"
+                android:paddingTop="6dp" />
+
+            <TextView
+                android:id="@+id/textTechName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tech Name: "
+                android:textSize="16sp"
+                android:textColor="#444444"
+                android:paddingTop="6dp" />
+
+            <TextView
+                android:id="@+id/textStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status: "
+                android:textSize="16sp"
+                android:textColor="#FFA500"
+                android:paddingTop="6dp" />
+
+            <Button
+                android:id="@+id/btn_approve_completion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirm Completion"
+                android:layout_marginTop="12dp"
+                android:background="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <!-- CardView for Customer Remarks -->
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/cardViewCustomerRemarks"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewBookingDetails">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Customer Remarks"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#333333" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#E0E0E0"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/textCustomerRemarks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remarks: "
+                android:textSize="16sp"
+                android:textColor="#444444"
+                android:paddingTop="10dp"
+                android:maxLines="3"
+                android:ellipsize="end" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

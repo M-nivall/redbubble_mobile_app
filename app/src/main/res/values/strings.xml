@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Signs Evolution</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Signs Evolution</string>
+    <string name="nav_header_subtitle">Signs Evolution</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="home_second">Home Second</string>
+    <string name="logout">Logout</string>
+    <string name="register">Register</string>
+    <string name="login">Customer Login</string>
+    <string name="orders">Orders</string>
+    <string name="feedback">Feedback</string>
+    <string name="staff_login">Login</string>
+    <string name="about">
+Signs Evolution is a franchise business offering high business advertising signs and Graphics
+as well as Branding services in all business areas and continuous improvement of both the
+business model and product portfolio.
+
+If you are looking to start a new business, or re-brand Signs Evolution East Africa, have
+many available options across the board. They are also interested to hear from entrepreneurs
+looking to take Signs Evolution East Africa to other Countries through a master license.
+
+
+    </string>
+
+
+    <string name="help">
+        <b>1.	Help</b>
+
+    </string>
+
+    <string-array name="service_categories">
+        <item>All</item>
+        <item>T-shirts</item>
+        <item>Hoodies</item>
+        <item>Caps</item>
+    </string-array>
+
+
+    <string-array name="recipient">
+        <item>Select Recipient</item>
+        <item>Finance</item>
+        <item>Service manager</item>
+        <item>Technician</item>
+        <item>Designer</item>
+    </string-array>
+
+
+    <string-array name="products">
+        <item>Select item</item>
+
+        <item>Scaffolding</item>
+        <item>Power Drill</item>
+        <item>Angle Grinder</item>
+        <item>Silicon</item>
+        <item>Measuring Tape</item>
+        <item>Rivet Gun</item>
+
+    </string-array>
+    <string-array name="service_desc">
+        <item>Select item</item>
+
+        <item>3D Acrylic</item>
+        <item>LED Lightbox</item>
+        <item> Frosted Glass</item>
+
+    </string-array>
+    <string-array name="installation_type">
+        <item>Select item</item>
+
+        <item>Wall-mounted</item>
+        <item>Hanging</item>
+        <item>Freestanding</item>
+
+    </string-array>
+    <string name="title_activity_supplier_payments">SupplierPayments</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+</resources>

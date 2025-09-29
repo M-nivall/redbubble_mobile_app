@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    android:padding="16dp"
+    tools:context="com.example.Varsani.Clients.InvoiceItems">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:layout_marginBottom="16dp">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/tv_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signs Evolution East Africa"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tv_company_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="P. O. Box 1096 - 00517, Nairobi, Kenya"
+            android:textSize="14sp"
+            android:textColor="@color/colorBlack"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tv_company_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone: +254 4665 000 | +254 4275 900 "
+            android:textSize="14sp"
+            android:textColor="@color/colorBlack"
+            android:layout_gravity="center_horizontal" />
+        <TextView
+            android:id="@+id/tv_company_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: signsevolution@gmail.com"
+            android:textSize="14sp"
+            android:textColor="@color/colorBlack"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Booking Details -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Booking Details"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            android:paddingBottom="8dp" />
+        <TextView
+            android:id="@+id/tv_clientName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Client Name: "
+            android:textSize="14sp"
+            android:textColor="@color/colorBlack"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_orderID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order ID: "
+            android:textSize="14sp"
+            android:textColor="@color/colorBlack"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Service: "
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_bookingDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Booking: "
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status: "
+            android:textSize="14sp"
+            android:textColor="@color/colorBlack"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_serviceFee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Service Fee: "
+            android:textSize="14sp"
+            android:paddingBottom="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack" />
+        <Button
+            android:id="@+id/btn_receipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Receipt"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/layout_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@android:color/white"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <!-- Payment Options -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Options"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlack"
+                android:paddingBottom="8dp" />
+
+            <RadioGroup
+                android:id="@+id/rg_payment_methods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_mpesa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:text="M-Pesa" />
+
+                <RadioButton
+                    android:id="@+id/rb_bank_transfer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:text="Bank" />
+            </RadioGroup>
+
+            <!-- Payment Reference -->
+            <EditText
+                android:id="@+id/et_payment_reference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Payment Reference Code"
+                android:inputType="text"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                android:elevation="4dp"
+                android:background="@drawable/edittext_background1" />
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:visibility="gone"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_marginTop="16dp" />
+
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/btn_submit_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Make Payment"
+                android:backgroundTint="#007BFF"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="16dp" />
+
+            <!-- Footer -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:id="@+id/tv_footer_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thank you for your business!"
+                android:textSize="14sp"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

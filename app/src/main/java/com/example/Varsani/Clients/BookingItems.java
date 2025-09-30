@@ -31,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.Varsani.Clients.Adapters.AdapterBookingItems;
 import com.example.Varsani.Clients.Adapters.AdapterServiceCart;
 import com.example.Varsani.Clients.Models.CartModal;
 import com.example.Varsani.Clients.Models.UserModel;
@@ -54,7 +55,7 @@ public class BookingItems extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private final List<CartModal> list = new ArrayList<>();
-    private AdapterServiceCart adapterServiceCart;
+    private AdapterBookingItems adapterBookingItems;
     private SessionHandler session;
     private UserModel user;
     private ProgressBar progressBar;
@@ -72,11 +73,12 @@ public class BookingItems extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_booking_items);
 
-        getSupportActionBar().setSubtitle("Payment Details");
+        //getSupportActionBar().setSubtitle("Payment Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         progressBar=findViewById(R.id.progressBar);
         tvPaymentID=findViewById(R.id.tvPaymentID);
@@ -102,8 +104,8 @@ public class BookingItems extends AppCompatActivity {
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         );
-        adapterServiceCart = new AdapterServiceCart(getApplicationContext(), list);
-        recyclerView.setAdapter(adapterServiceCart);
+        adapterBookingItems = new AdapterBookingItems(getApplicationContext(), list);
+        recyclerView.setAdapter(adapterBookingItems);
 
         session = new SessionHandler(getApplicationContext());
         user    = session.getUserDetails();
@@ -127,7 +129,7 @@ public class BookingItems extends AppCompatActivity {
         //tvClientName.setText("Name: " + clientName);
         tvPaymentCode.setText("Payment Code: " + paymentCode);
         tvStatus.setText("Status: " + orderStatus);
-        tvAmount.setText("Paid Amount: " + totalCost + " ksh");
+        tvAmount.setText("Total Amount: " + totalCost + " ksh");
         //tvEmail.setText("Email: " + email);
         //tvBookingDate.setText("Booking Date: " + paymentDate );
         //tvClientNo.setText("Phone No: " + phoneNo );
@@ -265,7 +267,7 @@ public class BookingItems extends AppCompatActivity {
                                 }
                             }
 
-                            adapterServiceCart.notifyDataSetChanged();
+                            adapterBookingItems.notifyDataSetChanged();
 
                             cartTotalStr = root.optString("cartTotal", sumClientSide(list));
                             txv_cart_subtotal.setText("Ksh " + formatNumber(cartTotalStr));
@@ -281,7 +283,7 @@ public class BookingItems extends AppCompatActivity {
                             //progressBar.setVisibility(View.GONE);
                             //layout_bottom.setVisibility(View.GONE);
                             //txv_success.setVisibility(View.VISIBLE);
-                            adapterServiceCart.notifyDataSetChanged();
+                            adapterBookingItems.notifyDataSetChanged();
                             //btn_pay.setEnabled(false);
                             //Toast.makeText(getApplicationContext(), "Booking list is empty", Toast.LENGTH_SHORT).show();
                         }

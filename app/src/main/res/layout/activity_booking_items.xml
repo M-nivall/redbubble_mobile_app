@@ -31,53 +31,6 @@
                     android:textColor="@color/colorBlack" />
 
                 <androidx.cardview.widget.CardView
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
-                    app:cardBackgroundColor="@color/white">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Client Details"
-                            android:textSize="16sp"
-                            android:layout_gravity="center"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorBlack" />
-
-
-                        <TextView
-                            android:id="@+id/tvClientName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Client Name"
-                            android:textColor="@color/colorBlack"/>
-
-                        <TextView
-                            android:id="@+id/tvClientNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Phone Number"
-                            android:textColor="@color/colorBlack"/>
-
-                        <TextView
-                            android:id="@+id/tvEmail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Email"
-                            android:textColor="@color/colorBlack"/>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -100,7 +53,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/colorBlack" />
 
-                        <include layout="@layout/row_cart_header" />
+                        <include layout="@layout/row_cart_items_header" />
 
                         <!-- List -->
                         <androidx.recyclerview.widget.RecyclerView
@@ -194,6 +147,13 @@
                             android:layout_height="wrap_content"
                             android:text="Payment Code"
                             android:textColor="@color/colorBlack"/>
+                        <TextView
+                            android:id="@+id/tvShipFee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Shipping Fee: 300 ksh"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"/>
                         <TextView
                             android:id="@+id/tvAmount"
                             android:layout_width="wrap_content"

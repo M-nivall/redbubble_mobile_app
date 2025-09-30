@@ -3,7 +3,7 @@ package com.example.Varsani.utils;
 public class Urls {
 
 
-   public static String ipAddress = "http://192.168.209.114/redbubble/";
+   public static String ipAddress = "http://192.168.100.71/redbubble/";
     //public static String ipAddress = "http://192.168.0.110/signsevolution/";
 
     private static final String ROOT_URL =ipAddress+ "android_files/";

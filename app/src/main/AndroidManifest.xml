@@ -19,6 +19,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Clients.ItemDetails"
+            android:exported="false" />
+        <activity
             android:name=".Clients.BookingItems"
             android:exported="false" />
         <activity

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:background="@android:color/white"
+    android:weightSum="6">
+
+    <!-- Item ID -->
+    <TextView
+        android:id="@+id/col_item_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:textStyle="bold"
+        android:textColor="#222"
+        android:gravity="start"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="123" />
+
+    <!-- Item name -->
+    <TextView
+        android:id="@+id/col_item_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.0"
+        android:textColor="#222"
+        android:gravity="start"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:paddingStart="8dp"
+        android:text="T-Shirt Premium" />
+
+    <!-- Qty -->
+    <TextView
+        android:id="@+id/col_qty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.6"
+        android:gravity="center"
+        android:textColor="#222"
+        android:text="3" />
+
+    <!-- Item price -->
+    <TextView
+        android:id="@+id/col_item_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:gravity="end"
+        android:textColor="#222"
+        android:text="650" />
+
+    <!-- Total -->
+    <TextView
+        android:id="@+id/col_total"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:gravity="end"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:text="1950" />
+
+    <!-- View Details link -->
+    <TextView
+        android:id="@+id/col_view_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:gravity="end"
+        android:text="Details"
+        android:textStyle="bold"
+        android:textColor="?attr/colorAccent"
+        android:paddingStart="8dp"
+        android:clickable="true"
+        android:focusable="true" />
+</LinearLayout>

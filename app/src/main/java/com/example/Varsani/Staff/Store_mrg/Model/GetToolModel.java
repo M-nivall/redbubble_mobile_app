@@ -2,26 +2,37 @@ package com.example.Varsani.Staff.Store_mrg.Model;
 
 
 public class GetToolModel {
-    String toolID;
-    String toolName;
+    String stockID;
+    String category;
     String quantity;
+    String color;
+    String description;
 
-    public GetToolModel(String toolID, String toolName, String quantity){
-        this.toolName=toolName;
+    public GetToolModel(String stockID, String category, String quantity, String color, String description){
+        this.stockID=stockID;
+        this.category=category;
         this.quantity=quantity;
-        this.toolID=toolID;
+        this.color=color;
+        this.description=description;
+
     }
 
-    public String getToolID() {
-        return toolID;
+    public String getStockID() {
+        return stockID;
     }
 
-    public String getToolName() {
-        return toolName;
+    public String getCategory() {
+        return category;
     }
 
     public String getQuantity() {
         return quantity;
+    }
+    public String getColor() {
+        return color;
+    }
+    public String getDescription() {
+        return description;
     }
 
 }

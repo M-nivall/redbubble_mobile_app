@@ -52,12 +52,12 @@ public class ItemDetails extends AppCompatActivity {
     private LinearLayout layout_approval;
     private String files_url = Urls.ROOT_URL_BRAND_DESIGNS;
     private String url;
-    private String itemId,designFile,designStatus;
+    private String itemId,orderID,designFile,designStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_item_details);
 
         tvProduct = findViewById(R.id.tvProduct);
@@ -77,6 +77,7 @@ public class ItemDetails extends AppCompatActivity {
         // Retrieve data from the intent
         Intent intent = getIntent();
         itemId = intent.getStringExtra("itemId");
+        orderID = intent.getStringExtra("orderID");
         String itemName = intent.getStringExtra("itemName");
 
         tvProduct.setText("Product: " + itemName);
@@ -130,14 +131,14 @@ public class ItemDetails extends AppCompatActivity {
                                 String dimension = jsn.getString("dimension");
                                 String notes = jsn.getString("notes");
                                 designStatus = jsn.getString("designStatus");
-                                designFile = jsn.getString("name");
+                                designFile = jsn.getString("designFile");
 
                                 tvPrintArea.setText("Print Area: " + printArea);
                                 tvSize.setText("Size: " + dimension);
                                 tvQuantity.setText("Quantity: " + quantity);
                                 tvInputText.setText(notes);
 
-                                if(!TextUtils.isEmpty(designFile) && designStatus.equalsIgnoreCase("Pending Approval")){
+                                if(!designFile.equalsIgnoreCase("NULL") && designStatus.equalsIgnoreCase("Pending approval")){
                                     layout_approval.setVisibility(View.VISIBLE);
 
                                 }
@@ -229,6 +230,7 @@ public class ItemDetails extends AppCompatActivity {
             protected Map<String,String>getParams()throws AuthFailureError {
                 Map<String,String> params=new HashMap<>();
                 params.put("itemId",itemId);
+                params.put("orderID",orderID);
                 params.put("feedback",feedback);
                 Log.e("PARAMS",""+params);
                 return params;

@@ -155,6 +155,7 @@ public class AdapterServices extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         String image=p.getImgUrl();
                         String stock=p.getStock();
                         String desc=p.getDesc();
+                        String category=p.getCategory();
                         Intent in = new Intent(ctx, SingleService.class);
                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         in.putExtra("proID", productID);
@@ -163,6 +164,7 @@ public class AdapterServices extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         in.putExtra("image", image);
                         in.putExtra("stock", stock);
                         in.putExtra("desc", desc);
+                        in.putExtra("category", category);
                         ctx.startActivity(in);
 
                     }else {

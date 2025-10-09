@@ -1,4 +1,4 @@
-package com.example.Varsani.Clients.Adapters;
+package com.example.Varsani.Staff.ServMrg.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,22 +11,24 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.Varsani.Clients.Adapters.AdapterBookingItems;
 import com.example.Varsani.Clients.ItemDetails;
 import com.example.Varsani.Clients.Models.CartModal;
 import com.example.Varsani.R;
+import com.example.Varsani.Staff.ServMrg.ItemInformation;
 
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class AdapterBookingItems extends RecyclerView.Adapter<AdapterBookingItems.RowVH> {
+public class AdapterItems extends RecyclerView.Adapter<AdapterItems.RowVH>{
     private final List<CartModal> items;
     private final Context ctx;
     private final NumberFormat nf = NumberFormat.getInstance(Locale.getDefault());
 
     //public static final String EXTRA_ITEM_ID = "ITEM_ID";
 
-    public AdapterBookingItems(Context context, List<CartModal> items) {
+    public AdapterItems(Context context, List<CartModal> items) {
         this.items = items;
         this.ctx = context;
     }
@@ -45,14 +47,14 @@ public class AdapterBookingItems extends RecyclerView.Adapter<AdapterBookingItem
     }
 
     @Override
-    public RowVH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AdapterItems.RowVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_cart_item_table, parent, false);
-        return new RowVH(v);
+        return new AdapterItems.RowVH(v);
     }
 
     @Override
-    public void onBindViewHolder(RowVH h, int position) {
+    public void onBindViewHolder(AdapterItems.RowVH h, int position) {
         CartModal m = items.get(position);
 
         // Raw strings from your model
@@ -60,7 +62,8 @@ public class AdapterBookingItems extends RecyclerView.Adapter<AdapterBookingItem
         String name   = m.getProductName();   // item
         String qty    = m.getQuantity();      // quantity
         String price  = m.getPrice();         // item_price
-        String total  = m.getSubToatl();      // total_price per row
+        String total  = m.getSubToatl();
+        String image_url  = m.getImgUrl();
         String orderID  = m.getOrderID();
 
         h.colItemId.setText(itemId);
@@ -77,9 +80,10 @@ public class AdapterBookingItems extends RecyclerView.Adapter<AdapterBookingItem
         h.colViewDetails.setOnClickListener(v -> {
             if (itemId == null || itemId.trim().isEmpty()) return;
 
-            Intent i = new Intent(v.getContext(), ItemDetails.class);
+            Intent i = new Intent(v.getContext(), ItemInformation.class);
             i.putExtra("itemId", itemId);
             i.putExtra("itemName", name);
+            i.putExtra("image_url", image_url);
             i.putExtra("orderID", orderID);
 
             // If adapter was built with application context, ensure we start a new task

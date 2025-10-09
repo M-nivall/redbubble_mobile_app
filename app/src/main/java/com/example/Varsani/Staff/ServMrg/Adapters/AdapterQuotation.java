@@ -14,6 +14,7 @@ import com.example.Varsani.Clients.Models.UserModel;
 import com.example.Varsani.R;
 import com.example.Varsani.Staff.Adapters.AdapterQuot;
 import com.example.Varsani.Staff.Models.OrderToShipModel;
+import com.example.Varsani.Staff.ServMrg.Models.BookingModel;
 import com.example.Varsani.Staff.ServMrg.QuotItems;
 import com.example.Varsani.Staff.ServMrg.QuotationItems;
 import com.example.Varsani.utils.SessionHandler;
@@ -21,7 +22,7 @@ import com.example.Varsani.utils.SessionHandler;
 import java.util.List;
 
 public class AdapterQuotation extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private List<OrderToShipModel> items;
+    private List<BookingModel> items;
 
     private Context ctx;
     ProgressDialog progressDialog;
@@ -45,14 +46,14 @@ public class AdapterQuotation extends RecyclerView.Adapter<RecyclerView.ViewHold
 //        this.onMoreButtonClickListener = onMoreButtonClickListener;
 //    }
 
-    public AdapterQuotation(Context context, List<OrderToShipModel> items) {
+    public AdapterQuotation(Context context, List<BookingModel> items) {
         this.items = items;
         ctx = context;
     }
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txv_bookingID,txv_clientName, txv_service,txv_Status;
+        public TextView txv_bookingID,txv_clientName,txv_bookingDate,txv_Status;
 
 
         public OriginalViewHolder(View v) {
@@ -61,7 +62,7 @@ public class AdapterQuotation extends RecyclerView.Adapter<RecyclerView.ViewHold
             txv_clientName =v.findViewById(R.id.txv_clientName);
             txv_bookingID =v.findViewById(R.id.txv_bookingID);
             txv_Status = v.findViewById(R.id.txv_Status);
-            txv_service = v.findViewById(R.id.txv_service);
+            txv_bookingDate = v.findViewById(R.id.txv_bookingDate);
 
         }
     }
@@ -69,7 +70,7 @@ public class AdapterQuotation extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lv_orderstoship, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lv_booking_items, parent, false);
         vh = new AdapterQuotation.OriginalViewHolder(v);
         return vh;
     }
@@ -80,11 +81,11 @@ public class AdapterQuotation extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (holder instanceof AdapterQuotation.OriginalViewHolder) {
             final AdapterQuotation.OriginalViewHolder view = (AdapterQuotation.OriginalViewHolder) holder;
 
-            final OrderToShipModel o= items.get(position);
+            final BookingModel o= items.get(position);
 
             view.txv_bookingID.setText("Booking ID: "+o.getOrderID());
-            view.txv_Status.setText("Payment: " + o.getOrderStatus());
-            view.txv_service.setText("Request date: "+o.getServName());
+            view.txv_Status.setText("Status: " + o.getOrderStatus());
+            view.txv_bookingDate.setText("0rder Date: "+o.getOrderDate());
             view.txv_clientName.setText("Client: "+o.getClientName());
 
 
@@ -96,24 +97,17 @@ public class AdapterQuotation extends RecyclerView.Adapter<RecyclerView.ViewHold
                     Intent in = new Intent(ctx, QuotationItems.class);
                     in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    // Passing all the details from OrderToShipModel
+                    // Passing all the details from BookingModel
                     in.putExtra("orderID", o.getOrderID());
                     in.putExtra("clientID", o.getClientID());
-                    in.putExtra("businessName", o.getBusinessName());
-                    in.putExtra("servName", o.getServName());
-                    in.putExtra("dimension", o.getDimension());
-                    in.putExtra("serviceDesc", o.getServiceDesc());
-                    in.putExtra("installationType", o.getInstallationType());
-                    in.putExtra("inputText", o.getInputText());
-                    in.putExtra("sketchImg", o.getSketchImg());
-                    in.putExtra("logoImg", o.getLogoImg());
-                    in.putExtra("expectedDate", o.getExpectedDate());
-                    in.putExtra("clientName", o.getClientName());
-                    in.putExtra("orderDate", o.getOrderDate());
-                    in.putExtra("address", o.getAddress());
-                    in.putExtra("orderStatus", o.getOrderStatus());
                     in.putExtra("county", o.getCounty());
                     in.putExtra("town", o.getTown());
+                    in.putExtra("address", o.getAddress());
+                    in.putExtra("expDate", o.getExpectedDate());
+                    in.putExtra("orderDate", o.getOrderDate());
+                    in.putExtra("clientName", o.getClientName());
+                    in.putExtra("tell", o.getPhoneNo());
+                    in.putExtra("orderStatus", o.getOrderStatus());
 
                     ctx.startActivity(in);
                 }

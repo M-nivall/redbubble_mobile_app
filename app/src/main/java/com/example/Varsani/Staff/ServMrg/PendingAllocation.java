@@ -26,6 +26,7 @@ import com.example.Varsani.R;
 import com.example.Varsani.Staff.Adapters.AdapterQuot;
 import com.example.Varsani.Staff.Models.OrderToShipModel;
 import com.example.Varsani.Staff.ServMrg.Adapters.AdapterQuotation;
+import com.example.Varsani.Staff.ServMrg.Models.BookingModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,7 +36,7 @@ import java.util.List;
 
 public class PendingAllocation extends AppCompatActivity {
 
-    private List<OrderToShipModel> list;
+    private List<BookingModel> list;
     private AdapterQuotation adapterQuotation;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
@@ -46,7 +47,7 @@ public class PendingAllocation extends AppCompatActivity {
         setContentView(R.layout.activity_pending_allocation);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setSubtitle("Pending Allocation");
+        getSupportActionBar().setSubtitle("New Bookings");
         recyclerView=findViewById(R.id.recyclerView);
         progressBar=findViewById(R.id.progressBar);
 
@@ -83,26 +84,18 @@ public class PendingAllocation extends AppCompatActivity {
                                     JSONObject jsn=jsonArray.getJSONObject(i);
                                     String orderID=jsn.getString("orderID");
                                     String clientID=jsn.getString("clientID");
-                                    String business_name=jsn.getString("business_name");
-                                    String serv_name=jsn.getString("serv_name");
-                                    String dimension=jsn.getString("dimension");
-                                    String service_desc=jsn.getString("service_desc");
-                                    String installation_type=jsn.getString("installation_type");
-                                    String input_text=jsn.getString("input_text");
-                                    String sketch_img=jsn.getString("sketch_img");
-                                    String logo_img=jsn.getString("logo_img");
-                                    String expected_date=jsn.getString("expected_date");
-                                    String clientName=jsn.getString("clientName");
-                                    String orderDate=jsn.getString("orderDate");
-                                    String address=jsn.getString("address");
-                                    String orderStatus=jsn.getString("orderStatus");
                                     String county=jsn.getString("county");
                                     String town=jsn.getString("town");
+                                    String address=jsn.getString("address");
+                                    String expectedDate=jsn.getString("expectedDate");
+                                    String orderDate=jsn.getString("orderDate");
+                                    String clientName=jsn.getString("clientName");
+                                    String phoneNo=jsn.getString("phoneNo");
+                                    String orderStatus=jsn.getString("orderStatus");
 
-                                    OrderToShipModel orderToShipModel=new OrderToShipModel(orderID,clientID,business_name,serv_name,dimension,service_desc,
-                                            installation_type,input_text,sketch_img,logo_img,expected_date,clientName,orderDate,address,orderStatus,
-                                            county,town);
-                                    list.add(orderToShipModel);
+                                    BookingModel bookingModel=new BookingModel(orderID,clientID,county,town,address,expectedDate,
+                                            orderDate,clientName,phoneNo,orderStatus);
+                                    list.add(bookingModel);
                                 }
                                 adapterQuotation=new AdapterQuotation(getApplicationContext(),list);
                                 recyclerView.setAdapter(adapterQuotation);

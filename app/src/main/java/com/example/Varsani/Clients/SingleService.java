@@ -36,6 +36,7 @@ public class SingleService extends AppCompatActivity {
     private String desc;      // not shown here, kept for future
     private String imagename;
     private String price;     // unit price string (e.g., "25.00" or "Ksh 25.00")
+    private String category;
 
     // Views
     private ImageView imageView;
@@ -62,6 +63,7 @@ public class SingleService extends AppCompatActivity {
         desc        = intent.getStringExtra("desc");
         imagename   = intent.getStringExtra("image");
         price       = intent.getStringExtra("price");
+        category       = intent.getStringExtra("category");
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setSubtitle(productName != null ? productName : "");
@@ -151,6 +153,7 @@ public class SingleService extends AppCompatActivity {
             // Use the constants from CheckOut2 to avoid key mismatches
             i.putExtra(CheckOut2.EXTRA_PRODUCT_ID,   productID != null ? productID : "");
             i.putExtra(CheckOut2.EXTRA_PRODUCT_NAME, productName != null ? productName : "");
+            i.putExtra(CheckOut2.EXTRA_PRODUCT_CATEGORY, category != null ? category : "");
             i.putExtra(CheckOut2.EXTRA_PRICE,        price != null ? price : "0");
             i.putExtra(CheckOut2.EXTRA_QTY,          String.valueOf(q));
 

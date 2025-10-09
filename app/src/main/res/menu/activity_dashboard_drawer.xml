@@ -46,16 +46,17 @@
             android:title="Stock" />
         <item
             android:id="@+id/nav_tools"
-            android:title="Tools" />
+            android:title="Stock" />
         <item
             android:id="@+id/nav_materials"
             android:title="Requested Materials" />
         <item
             android:id="@+id/nav_quot_requests"
+            android:visible="false"
             android:title="New Service Requests" />
         <item
             android:id="@+id/nav_pending_allocation"
-            android:title="Pending Design Allocation" />
+            android:title="New Bookings" />
         <item
         android:id="@+id/nav_completed_design"
         android:title="Completed Designs" />

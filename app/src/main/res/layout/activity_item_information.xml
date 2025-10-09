@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".Staff.ServMrg.ItemInformation">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Heading -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Item Details"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="16dp" />
+
+        <!-- CardView for Service Details -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item: "
+                    android:textSize="16sp"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Size: "
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quantity: "
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvPrintArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Print Area: "
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Additional notes: "
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp" />
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@drawable/rounded_background"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/tvInputText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorBlack"
+                        android:lineSpacingExtra="4dp"/>
+
+                </ScrollView>
+                <Button
+                    android:id="@+id/btn_viewDesign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View Logo" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+            android:id="@+id/layout_upload_design"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal"
+            android:background="@android:color/white">
+
+            <LinearLayout
+                android:id="@+id/layout_approval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center_horizontal"
+                android:background="@android:color/white">
+
+                <!-- Feedback Section -->
+                <TextView
+                    android:id="@+id/txt_fb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upload Design"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical">
+
+                    <Button
+                        android:id="@+id/btn_upload_design"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Upload Design" />
+
+                    <TextView
+                        android:id="@+id/tvSelectedFile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="No file chosen" />
+                </LinearLayout>
+
+                <!-- Confirm and Approval Buttons -->
+                <Button
+                    android:id="@+id/btn_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upload Design"
+                    android:backgroundTint="@color/colorAccent"
+                    android:textColor="@android:color/white"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="10dp"/>
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/progressBar1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

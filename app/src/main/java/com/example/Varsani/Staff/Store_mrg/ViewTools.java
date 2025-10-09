@@ -44,7 +44,7 @@ public class ViewTools extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_tools);
 
-        getSupportActionBar().setSubtitle("Tools");
+        getSupportActionBar().setSubtitle("Stock");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressBar=findViewById(R.id.progressBar);
         recyclerView=findViewById(R.id.recyclerView);
@@ -108,10 +108,12 @@ public class ViewTools extends AppCompatActivity {
                                 JSONArray jsonArray=jsonObject.getJSONArray("details");
                                 for(int i=0;i <jsonArray.length();i++){
                                     JSONObject jsn=jsonArray.getJSONObject(i);
-                                    String toolID=jsn.getString("toolID");
-                                    String toolName=jsn.getString("toolName");
+                                    String stockID=jsn.getString("stockID");
+                                    String category=jsn.getString("category");
                                     String quantity=jsn.getString("quantity");
-                                    GetToolModel getToolModel=new GetToolModel(toolID,toolName,quantity);
+                                    String color=jsn.getString("color");
+                                    String description=jsn.getString("description");
+                                    GetToolModel getToolModel=new GetToolModel(stockID,category,quantity,color,description);
                                     list.add(getToolModel);
                                 }
                                 adapterGetTools=new AdapterGetTools(getApplicationContext(),list);

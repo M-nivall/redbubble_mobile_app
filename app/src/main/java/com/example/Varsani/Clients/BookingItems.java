@@ -98,7 +98,7 @@ public class BookingItems extends AppCompatActivity {
 
         btn_approve=findViewById(R.id.btn_submit);
 
-        recyclerView      = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(

@@ -46,6 +46,7 @@ public class CheckOut2 extends AppCompatActivity {
 
     public static final String EXTRA_PRODUCT_ID   = "proID";
     public static final String EXTRA_PRODUCT_NAME = "proName";
+    public static final String EXTRA_PRODUCT_CATEGORY = "category";
     public static final String EXTRA_PRICE        = "price";
     public static final String EXTRA_QTY          = "qty";
 
@@ -56,6 +57,7 @@ public class CheckOut2 extends AppCompatActivity {
 
     private String productID;
     private String productName;
+    private String category;
     private String unitPriceStr;
     private double unitPrice = 0.0;
     private int qty = 1;
@@ -119,6 +121,7 @@ public class CheckOut2 extends AppCompatActivity {
         Intent in = getIntent();
         productID     = in.getStringExtra(EXTRA_PRODUCT_ID);
         productName   = in.getStringExtra(EXTRA_PRODUCT_NAME);
+        category   = in.getStringExtra(EXTRA_PRODUCT_CATEGORY);
         unitPriceStr  = in.getStringExtra(EXTRA_PRICE);
         try { qty = Integer.parseInt(defaultIfEmpty(in.getStringExtra(EXTRA_QTY), "1")); }
         catch (Exception ignored) { qty = 1; }
@@ -136,7 +139,7 @@ public class CheckOut2 extends AppCompatActivity {
 
         spColor.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item,
-                new String[]{"Black", "White", "Red", "Blue", "Green", "Navy", "Maroon"}));
+                new String[]{"Black", "White", "Red", "Blue", "Green", "Maroon"}));
 
         spSize.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item,
@@ -170,6 +173,7 @@ public class CheckOut2 extends AppCompatActivity {
 
         final String _productID   = defaultIfEmpty(productID, "");
         final String _productName = defaultIfEmpty(productName, "");
+        final String _category = defaultIfEmpty(category, "");
         final String _unitPrice   = String.valueOf(unitPrice);
         final String _quantity    = String.valueOf(qty);
         final String _total       = txvTotal.getTag() != null ? txvTotal.getTag().toString() : "0.0";
@@ -246,6 +250,7 @@ public class CheckOut2 extends AppCompatActivity {
                 // Product
                 params.put("productID",   _productID);
                 params.put("productName", _productName);
+                params.put("category", _category);
                 params.put("unitPrice",   _unitPrice);
                 params.put("quantity",    _quantity);
                 params.put("totalPrice",  _total);

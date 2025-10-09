@@ -17,4 +17,10 @@
     <color name="statusColor">#4CAF50</color>
     <color name="orange">#FF5722</color>
     <color name="gray">#BDBDBD</color>
+
+    <color name="tshirt_color">#FFF59D</color> <!-- Light Yellow -->
+    <color name="hoodie_color">#C5CAE9</color> <!-- Soft Blue -->
+    <color name="cap_color">#B2DFDB</color>    <!-- Light Teal -->
+    <color name="default_card">#FFFFFF</color> <!-- White -->
+
 </resources>

@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Approve Requested Materials"
+            android:text="Release Stock"
             android:textSize="22sp"
             android:textColor="@android:color/black"
             android:textStyle="bold"
@@ -49,41 +49,33 @@
 
                 <!-- Text Fields -->
                 <TextView
-                    android:id="@+id/txv_tenderID"
+                    android:id="@+id/txv_orderID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tender ID: 12345"
+                    android:text="Order ID: 12345"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textColor="@android:color/black"
                     android:paddingBottom="4dp" />
 
                 <TextView
-                    android:id="@+id/txv_items"
+                    android:id="@+id/txv_tech"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Items: Cement, Sand, Bricks"
+                    android:text="To Technician: Joe Doe"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimary"
                     android:paddingBottom="4dp" />
 
                 <TextView
-                    android:id="@+id/txv_technician"
+                    android:id="@+id/txv_client"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Technician: John Doe"
+                    android:text="Client: John Doe"
                     android:textSize="15sp"
                     android:textColor="@android:color/black"
                     android:paddingBottom="4dp" />
 
-                <TextView
-                    android:id="@+id/txv_phone_no"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Phone: +254 712345678"
-                    android:textSize="15sp"
-                    android:textColor="@android:color/black"
-                    android:paddingBottom="4dp" />
 
                 <TextView
                     android:id="@+id/txv_date"
@@ -104,18 +96,6 @@
                     android:textStyle="bold"
                     android:paddingBottom="8dp" />
 
-                <!-- Button & Progress Bar -->
-                <Button
-                    android:id="@+id/btn_submit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Approve Items"
-                    android:backgroundTint="@android:color/holo_green_dark"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"
-                    android:padding="10dp" />
-
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="wrap_content"
@@ -126,5 +106,53 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product Items"
+                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack" />
+
+                <include layout="@layout/row_stock_items_header" />
+
+                <!-- List -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:scrollbars="vertical"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Button & Progress Bar -->
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Release Items"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:padding="10dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

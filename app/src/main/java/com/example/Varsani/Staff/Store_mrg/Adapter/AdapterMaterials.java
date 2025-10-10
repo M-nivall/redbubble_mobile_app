@@ -51,13 +51,13 @@ public class AdapterMaterials extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txv_ID,txv_items,txv_date, tx_Status;
+        public TextView txv_ID,txv_tech,txv_date, tx_Status;
 
 
         public OriginalViewHolder(View v) {
             super(v);
 
-            txv_items =v.findViewById(R.id.txv_items);
+            txv_tech =v.findViewById(R.id.txv_tech);
             txv_date =v.findViewById(R.id.txv_date);
             txv_ID = v.findViewById(R.id.txv_ID);
             tx_Status = v.findViewById(R.id.tx_Status);
@@ -81,12 +81,12 @@ public class AdapterMaterials extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             final MaterialModel o= items.get(position);
 
-            view.txv_ID.setText("ID: "+o.getRequestID());
-            view.txv_items.setText("Items: "+o.getItems());
-            view.tx_Status.setText("Status: "+o.getRequestStatus());
-            view.txv_date.setText("Date: "+o.getRequestDate());
+            view.txv_ID.setText("#ID: "+o.getOrderID());
+            view.txv_tech.setText("To Technician: "+o.getTechName());
+            view.tx_Status.setText("Status: "+o.getReleaseState());
+            view.txv_date.setText("Date: "+o.getDateAssigned());
 
-            if (o.getRequestStatus().equals("Pending approval"))
+            if (o.getReleaseState().equals("Pending Release"))
             {
 
                 view.itemView.setOnClickListener(new View.OnClickListener() {
@@ -95,13 +95,11 @@ public class AdapterMaterials extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                         Intent in=new Intent(ctx, ApproveMaterials.class);
                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        in.putExtra("requestID", o.getRequestID());
-                        in.putExtra("items",o.getItems());
-                        in.putExtra("technician",o.getName());
-                        in.putExtra("status",o.getRequestStatus());
-                        in.putExtra("requestDate",o.getRequestDate());
-                        in.putExtra("phoneNo",o.getPhoneNo());
-                        in.putExtra("orderID",o.getOrderID());
+                        in.putExtra("orderID", o.getOrderID());
+                        in.putExtra("tech",o.getTechName());
+                        in.putExtra("client",o.getClientName());
+                        in.putExtra("status",o.getReleaseState());
+                        in.putExtra("requestDate",o.getDateAssigned());
                         ctx.startActivity(in);
 
                     }

@@ -49,7 +49,7 @@
             android:title="Stock" />
         <item
             android:id="@+id/nav_materials"
-            android:title="Requested Materials" />
+            android:title="Stock Release" />
         <item
             android:id="@+id/nav_quot_requests"
             android:visible="false"

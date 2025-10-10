@@ -1,56 +1,40 @@
 package com.example.Varsani.Staff.Store_mrg.Model;
 
 public class MaterialModel {
-    private String requestID;
-    private String name;
-    private String phoneNo;
-    private String items;
-    private String requestDate;
-    private String requestStatus;
     private String orderID;
-    private String datePosted;
-    private String tenderStatus;
+    private String techName;
+    private String dateAssigned;
+    private String clientName;
+    private String releaseState;
 
-    public MaterialModel(String requestID, String name, String phoneNo,
-                         String items, String requestDate, String requestStatus,
-                         String orderID) {
-        this.requestID = requestID;
-        this.name = name;
-        this.phoneNo = phoneNo;
-        this.items = items;
-        this.requestDate = requestDate;
-        this.requestStatus = requestStatus;
+    public MaterialModel(String orderID, String techName, String dateAssigned,
+                         String clientName, String releaseState) {
         this.orderID = orderID;
-        this.datePosted = datePosted;
+        this.techName = techName;
+        this.dateAssigned = dateAssigned;
+        this.clientName = clientName;
+        this.releaseState = releaseState;
     }
 
     // Getters
-    public String getRequestID() {
-        return requestID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public String getItems() {
-        return items;
-    }
-
-    public String getRequestDate() {
-        return requestDate;
-    }
-
-    public String getRequestStatus() {
-        return requestStatus;
-    }
-
     public String getOrderID() {
         return orderID;
+    }
+
+    public String getTechName() {
+        return techName;
+    }
+
+    public String getDateAssigned() {
+        return dateAssigned;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public String getReleaseState() {
+        return releaseState;
     }
 
 }

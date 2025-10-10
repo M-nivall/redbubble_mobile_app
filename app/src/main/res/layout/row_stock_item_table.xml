@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:color/white"
+    android:padding="10dp"
+    android:weightSum="6">
+
+    <TextView
+        android:id="@+id/col_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:textColor="#222"
+        android:gravity="start"
+        android:text="T-shirts" />
+
+    <TextView
+        android:id="@+id/col_item_color"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:textColor="#222"
+        android:gravity="start"
+        android:paddingStart="8dp"
+        android:text="Black" />
+
+    <TextView
+        android:id="@+id/col_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.0"
+        android:textColor="#222"
+        android:gravity="start"
+        android:text="Birthday T-Shirts" />
+
+    <TextView
+        android:id="@+id/col_item_qty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:textColor="#222"
+        android:gravity="end"
+        android:text="3" />
+</LinearLayout>

@@ -3,7 +3,7 @@ package com.example.Varsani.utils;
 public class Urls {
 
 
-   public static String ipAddress = "http://192.168.100.215/redbubble/";
+   public static String ipAddress = "http://192.168.236.59/redbubble/";
     //public static String ipAddress = "http://192.168.0.110/signsevolution/";
 
     private static final String ROOT_URL =ipAddress+ "android_files/";
@@ -36,6 +36,7 @@ public class Urls {
     public static final String URL_ADD_CART2=ROOT_URL + "client/add_to_cart2.php";
     public static final String URL_GET_CART2=ROOT_URL + "client/cart2.php";
     public static final String URL_GET_ITEMS=ROOT_URL + "client/items.php";
+    public static final String URL_GET_STOCK_ITEMS=ROOT_URL + "stock_mrg/items.php";
     public static final String URL_REMOVE_BOOKING=ROOT_URL + "client/booking_remove.php";
     public static final String URL_SUBMIT_REQUEST = ROOT_URL+"client/submit_request.php";
 

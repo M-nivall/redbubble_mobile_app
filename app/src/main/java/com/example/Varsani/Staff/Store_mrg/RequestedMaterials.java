@@ -53,7 +53,7 @@ public class RequestedMaterials extends AppCompatActivity {
         setContentView(R.layout.activity_requested_materials);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Requested Materials");
+        getSupportActionBar().setTitle("Requested Stck");
         progressBar = findViewById(R.id.progressBar);
         recyclerView = findViewById(R.id.recyclerView);
         btn_next = findViewById(R.id.btn_next);
@@ -96,16 +96,14 @@ public class RequestedMaterials extends AppCompatActivity {
                                 JSONArray jsonArray=jsonObject.getJSONArray("details");
                                 for(int i=0; i <jsonArray.length();i++){
                                     JSONObject jsn=jsonArray.getJSONObject(i);
-                                    String requestID=jsn.getString("requestID");
-                                    String name=jsn.getString("name");
-                                    String phoneNo=jsn.getString("phoneNo");
-                                    String items=jsn.getString("items");
-                                    String requestDate=jsn.getString("requestDate");
-                                    String requestStatus=jsn.getString("requestStatus");
                                     String orderID=jsn.getString("orderID");
+                                    String techName=jsn.getString("techName");
+                                    String dateAssigned=jsn.getString("dateAssigned");
+                                    String clientName=jsn.getString("clientName");
+                                    String releaseState=jsn.getString("releaseState");
 
-                                    MaterialModel mm=new MaterialModel(requestID,  name,  phoneNo,
-                                            items,  requestDate,  requestStatus, orderID);
+                                    MaterialModel mm=new MaterialModel(orderID,  techName,  dateAssigned,
+                                            clientName, releaseState);
                                     list.add(mm);
                                 }
                                 adapter=new AdapterMaterials(getApplicationContext(),list);

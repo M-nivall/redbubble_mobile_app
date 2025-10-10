@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
         user = session.getUserDetails();
         list = new ArrayList<>();
         list2 = new ArrayList<>();
-        getProdcuts();
+        //getProdcuts();
         getservices();
 
         // Setup Spinner

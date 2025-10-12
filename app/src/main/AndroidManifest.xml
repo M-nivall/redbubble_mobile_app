@@ -19,6 +19,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Staff.Technician.ViewItems"
+            android:exported="false" />
+        <activity
             android:name=".Staff.ServMrg.ItemInformation"
             android:exported="false" />
         <activity

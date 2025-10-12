@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Staff.Technician.ViewItems">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Client Details Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Booking Details"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:padding="4dp"
+                        android:textColor="@color/colorBlack"
+                        android:background="@color/colorreceipt"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorBlack"
+                        android:layout_marginVertical="4dp"/>
+
+                    <TextView android:id="@+id/tv_orderID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Order ID: " />
+
+                    <TextView android:id="@+id/tv_clientName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Client Name: " />
+
+                    <TextView android:id="@+id/tv_tell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone No: " />
+
+                    <TextView android:id="@+id/tv_expDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Expected Date: " />
+
+                    <TextView android:id="@+id/tv_county"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="County: " />
+
+                    <TextView android:id="@+id/tv_town"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Town: " />
+
+                    <TextView android:id="@+id/tv_bookingStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAccent"
+                        android:text="Status: " />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Product Items"
+                        android:textSize="16sp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorBlack" />
+
+                    <include layout="@layout/row_cart_items_header" />
+
+                    <!-- List -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:scrollbars="vertical"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:id="@+id/subtotal_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="#F7F7FA"
+                android:elevation="2dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/label_subtotal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Subtotal"
+                    android:textColor="#555555"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/txv_cart_subtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ksh 0"
+                    android:textColor="#111111"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btnCompleteWork"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirm Completion"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="10dp"/>
+            <Button
+                android:id="@+id/btnStartWork"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Start Work"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="10dp"/>
+
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/progressBar1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

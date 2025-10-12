@@ -22,10 +22,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.Varsani.Staff.Adapters.AdapterAssignedServices;
 import com.example.Varsani.Staff.Adapters.AdapterAssignedVisits;
+import com.example.Varsani.Staff.Designer.Adapters.AdapterDesign;
 import com.example.Varsani.Staff.Models.AssignedModel;
 import com.example.Varsani.Clients.Models.UserModel;
 import com.example.Varsani.R;
 import com.example.Varsani.Staff.Adapters.AdapterAsgnOrders;
+import com.example.Varsani.Staff.ServMrg.Models.BookingModel;
+import com.example.Varsani.Staff.Technician.Adapters.AdapterAssigned;
 import com.example.Varsani.utils.SessionHandler;
 
 import org.json.JSONArray;
@@ -36,16 +39,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.Varsani.utils.Urls.URL_ASSIGNED_DESIGNS;
+import static com.example.Varsani.utils.Urls.URL_ASSIGNED_SERVICES;
 import static com.example.Varsani.utils.Urls.URL_GET_ASSIGNED_ORDERS;
 import static com.example.Varsani.utils.Urls.URL_GET_ASSIGNED_SERVICES;
 import static com.example.Varsani.utils.Urls.URL_GET_ASSIGNED_SITES;
 
 public class AssignedServices extends AppCompatActivity {
 
+    private List<BookingModel> list;
+    private AdapterAssigned adapterAssigned;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
-    private List<AssignedModel>list;
-    private AdapterAssignedServices adapterAssignedServices;
     private SessionHandler session;
     private UserModel user;
 
@@ -55,20 +60,20 @@ public class AssignedServices extends AppCompatActivity {
         setContentView(R.layout.activity_assigned_services);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Assigned Services");
-        progressBar=findViewById(R.id.progressBar);
+        getSupportActionBar().setSubtitle("Assigned Bookings");
         recyclerView=findViewById(R.id.recyclerView);
+        progressBar=findViewById(R.id.progressBar);
 
         session=new SessionHandler(getApplicationContext());
         user=session.getUserDetails();
 
         list=new ArrayList<>();
+        recyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
+        recyclerView.setLayoutManager(mLayoutManager);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        RecyclerView.LayoutManager layoutManager=new GridLayoutManager(getApplicationContext(),2);
-        recyclerView.setLayoutManager(layoutManager);
 
-        getAssignedOrders();
+        newOrders();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -77,48 +82,57 @@ public class AssignedServices extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void getAssignedOrders() {
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL_GET_ASSIGNED_SERVICES,
+    public void newOrders(){
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL_ASSIGNED_SERVICES,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
                         try {
-                            Log.e("RESPONSE",response);
+                            Log.e("RESPONSE", response);
                             JSONObject jsonObject=new JSONObject(response);
                             String status=jsonObject.getString("status");
                             String msg=jsonObject.getString("message");
                             if(status.equals("1")){
 
                                 JSONArray jsonArray=jsonObject.getJSONArray("details");
-                                for(int i=0;i <jsonArray.length();i++){
+                                for(int i=0; i <jsonArray.length();i++){
                                     JSONObject jsn=jsonArray.getJSONObject(i);
                                     String orderID=jsn.getString("orderID");
-                                    String clientName=jsn.getString("clientName");
+                                    String clientID=jsn.getString("clientID");
                                     String county=jsn.getString("county");
                                     String town=jsn.getString("town");
                                     String address=jsn.getString("address");
+                                    String expectedDate=jsn.getString("expectedDate");
+                                    String orderDate=jsn.getString("orderDate");
+                                    String clientName=jsn.getString("clientName");
+                                    String phoneNo=jsn.getString("phoneNo");
                                     String orderStatus=jsn.getString("orderStatus");
-                                    AssignedModel assignedModel=new AssignedModel(orderID,orderStatus,clientName,address,county,town);
-                                    list.add(assignedModel);
+
+                                    BookingModel bookingModel=new BookingModel(orderID,clientID,county,town,address,expectedDate,
+                                            orderDate,clientName,phoneNo,orderStatus);
+                                    list.add(bookingModel);
                                 }
+                                adapterAssigned=new AdapterAssigned(getApplicationContext(),list);
+                                recyclerView.setAdapter(adapterAssigned);
                                 progressBar.setVisibility(View.GONE);
-                                adapterAssignedServices=new AdapterAssignedServices(getApplicationContext(),list);
-                                recyclerView.setAdapter(adapterAssignedServices);
+
+
                             }else{
                                 Toast toast=Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
                                 toast.setGravity(Gravity.TOP,0,250);
                                 toast.show();
+                                progressBar.setVisibility(View.GONE);
                             }
 
-                        }catch(Exception e){
+                        }catch (Exception e){
                             e.printStackTrace();
                             Toast toast=Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.TOP,0,250);
                             toast.show();
-                            progressBar.setVisibility(View.GONE);
+                            Log.e("ERROR E ", e.toString());
                         }
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -127,12 +141,14 @@ public class AssignedServices extends AppCompatActivity {
                 Toast toast=Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP,0,250);
                 toast.show();
+                Log.e("ERROR E ", error.toString());
             }
         }){
             @Override
-            protected Map<String,String>getParams()throws AuthFailureError{
-                Map<String,String> params=new HashMap<>();
-                params.put("staffID",user.getClientID());
+            protected Map<String,String> getParams()throws AuthFailureError {
+                Map<String,String>params=new HashMap<>();
+                params.put("techID",user.getClientID());
+                Log.e("PARAMS","" +params);
                 return params;
             }
         };

@@ -72,7 +72,7 @@
             android:title="Assigned Service Requests " />
         <item
             android:id="@+id/nav_proceed_service"
-            android:title="Proceed with Service " />
+            android:title="In Progress " />
 
         <item
             android:id="@+id/nav_assigned_services"

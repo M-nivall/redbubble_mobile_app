@@ -104,7 +104,7 @@ public class AssignedVisits extends AppCompatActivity {
                                             county,town,pdf_design,phone_no);
                                     list.add(completedDesignModel);
                                 }
-                                adapterAssigned=new AdapterAssigned(getApplicationContext(),list);
+                                //adapterAssigned=new AdapterAssigned(getApplicationContext(),list);
                                 recyclerView.setAdapter(adapterAssigned);
                                 progressBar.setVisibility(View.GONE);
 

@@ -12,14 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Varsani.Clients.Models.UserModel;
 import com.example.Varsani.R;
+import com.example.Varsani.Staff.Designer.Adapters.AdapterDesign;
+import com.example.Varsani.Staff.Designer.DesignItems;
+import com.example.Varsani.Staff.ServMrg.Models.BookingModel;
 import com.example.Varsani.Staff.ServMrg.Models.CompletedDesignModel;
 import com.example.Varsani.Staff.Technician.ServicesItems;
+import com.example.Varsani.Staff.Technician.ViewItems;
 import com.example.Varsani.utils.SessionHandler;
 
 import java.util.List;
 
 public class AdapterAssigned extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private List<CompletedDesignModel> items;
+    private List<BookingModel> items;
 
     private Context ctx;
     ProgressDialog progressDialog;
@@ -43,23 +47,23 @@ public class AdapterAssigned extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //        this.onMoreButtonClickListener = onMoreButtonClickListener;
 //    }
 
-    public AdapterAssigned(Context context, List<CompletedDesignModel> items) {
+    public AdapterAssigned(Context context, List<BookingModel> items) {
         this.items = items;
         ctx = context;
     }
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txv_bookingID,txv_client, txv_service,txv_expected_date;
+        public TextView txv_bookingID,txv_clientName,txv_bookingDate,txv_Status;
 
 
         public OriginalViewHolder(View v) {
             super(v);
 
-            txv_client =v.findViewById(R.id.txv_client);
+            txv_clientName =v.findViewById(R.id.txv_clientName);
             txv_bookingID =v.findViewById(R.id.txv_bookingID);
-            txv_expected_date = v.findViewById(R.id.txv_expected_date);
-            txv_service = v.findViewById(R.id.txv_service);
+            txv_Status = v.findViewById(R.id.txv_Status);
+            txv_bookingDate = v.findViewById(R.id.txv_bookingDate);
 
         }
     }
@@ -67,7 +71,7 @@ public class AdapterAssigned extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lv_assigned, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lv_booking_items, parent, false);
         vh = new AdapterAssigned.OriginalViewHolder(v);
         return vh;
     }
@@ -78,40 +82,33 @@ public class AdapterAssigned extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof AdapterAssigned.OriginalViewHolder) {
             final AdapterAssigned.OriginalViewHolder view = (AdapterAssigned.OriginalViewHolder) holder;
 
-            final CompletedDesignModel o= items.get(position);
+            final BookingModel o= items.get(position);
 
-            view.txv_bookingID.setText("Booking ID "+o.getOrderID());
-            view.txv_expected_date.setText("Expected Date: " + o.getExpectedDate());
-            view.txv_service.setText("Service: "+o.getServName());
-            view.txv_client.setText("Client: "+o.getClientName());
+            view.txv_bookingID.setText("Booking ID: "+o.getOrderID());
+            view.txv_Status.setText("Status: " + o.getOrderStatus());
+            view.txv_bookingDate.setText("0rder Date: "+o.getOrderDate());
+            view.txv_clientName.setText("Client: "+o.getClientName());
+
+
 
             view.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Intent in = new Intent(ctx, ServicesItems.class);
+                    Intent in = new Intent(ctx, ViewItems.class);
                     in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    // Passing all the details from OrderToShipModel
+                    // Passing all the details from BookingModel
                     in.putExtra("orderID", o.getOrderID());
                     in.putExtra("clientID", o.getClientID());
-                    in.putExtra("businessName", o.getBusinessName());
-                    in.putExtra("servName", o.getServName());
-                    in.putExtra("dimension", o.getDimension());
-                    in.putExtra("serviceDesc", o.getServiceDesc());
-                    in.putExtra("installationType", o.getInstallationType());
-                    in.putExtra("inputText", o.getInputText());
-                    in.putExtra("sketchImg", o.getSketchImg());
-                    in.putExtra("logoImg", o.getLogoImg());
-                    in.putExtra("expectedDate", o.getExpectedDate());
-                    in.putExtra("clientName", o.getClientName());
-                    in.putExtra("orderDate", o.getOrderDate());
-                    in.putExtra("address", o.getAddress());
-                    in.putExtra("orderStatus", o.getOrderStatus());
                     in.putExtra("county", o.getCounty());
                     in.putExtra("town", o.getTown());
-                    in.putExtra("pdf_design", o.getPdf_design());
-                    in.putExtra("phone_no", o.getPhone_no());
+                    in.putExtra("address", o.getAddress());
+                    in.putExtra("expDate", o.getExpectedDate());
+                    in.putExtra("orderDate", o.getOrderDate());
+                    in.putExtra("clientName", o.getClientName());
+                    in.putExtra("tell", o.getPhoneNo());
+                    in.putExtra("orderStatus", o.getOrderStatus());
 
                     ctx.startActivity(in);
                 }

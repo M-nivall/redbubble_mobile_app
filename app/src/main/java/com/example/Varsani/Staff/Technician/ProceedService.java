@@ -1,5 +1,6 @@
 package com.example.Varsani.Staff.Technician;
 
+import static com.example.Varsani.utils.Urls.URL_ASSIGNED_SERVICES;
 import static com.example.Varsani.utils.Urls.URL_PROCEED_SERVICES;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,27 +16,35 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.Varsani.Clients.Models.UserModel;
 import com.example.Varsani.R;
+import com.example.Varsani.Staff.ServMrg.Models.BookingModel;
 import com.example.Varsani.Staff.ServMrg.Models.CompletedDesignModel;
 import com.example.Varsani.Staff.Technician.Adapters.AdapterAssigned;
+import com.example.Varsani.utils.SessionHandler;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProceedService extends AppCompatActivity {
-    private List<CompletedDesignModel> list;
+    private List<BookingModel> list;
     private AdapterAssigned adapterAssigned;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
+    private SessionHandler session;
+    private UserModel user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +52,12 @@ public class ProceedService extends AppCompatActivity {
         setContentView(R.layout.activity_proceed_service);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setSubtitle("Service  Requests");
+        getSupportActionBar().setSubtitle("In Progress");
         recyclerView=findViewById(R.id.recyclerView);
         progressBar=findViewById(R.id.progressBar);
+
+        session=new SessionHandler(getApplicationContext());
+        user=session.getUserDetails();
 
         list=new ArrayList<>();
         recyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
@@ -53,7 +65,7 @@ public class ProceedService extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
 
 
-        getAssigned();
+        fetchItems();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -62,7 +74,7 @@ public class ProceedService extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void getAssigned(){
+    public void fetchItems(){
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL_PROCEED_SERVICES,
                 new Response.Listener<String>() {
                     @Override
@@ -80,28 +92,18 @@ public class ProceedService extends AppCompatActivity {
                                     JSONObject jsn=jsonArray.getJSONObject(i);
                                     String orderID=jsn.getString("orderID");
                                     String clientID=jsn.getString("clientID");
-                                    String business_name=jsn.getString("business_name");
-                                    String serv_name=jsn.getString("serv_name");
-                                    String dimension=jsn.getString("dimension");
-                                    String service_desc=jsn.getString("service_desc");
-                                    String installation_type=jsn.getString("installation_type");
-                                    String input_text=jsn.getString("input_text");
-                                    String sketch_img=jsn.getString("sketch_img");
-                                    String logo_img=jsn.getString("logo_img");
-                                    String expected_date=jsn.getString("expected_date");
-                                    String clientName=jsn.getString("clientName");
-                                    String orderDate=jsn.getString("orderDate");
-                                    String address=jsn.getString("address");
-                                    String orderStatus=jsn.getString("orderStatus");
                                     String county=jsn.getString("county");
                                     String town=jsn.getString("town");
-                                    String pdf_design=jsn.getString("pdf_design");
-                                    String phone_no=jsn.getString("phone_no");
+                                    String address=jsn.getString("address");
+                                    String expectedDate=jsn.getString("expectedDate");
+                                    String orderDate=jsn.getString("orderDate");
+                                    String clientName=jsn.getString("clientName");
+                                    String phoneNo=jsn.getString("phoneNo");
+                                    String orderStatus=jsn.getString("orderStatus");
 
-                                    CompletedDesignModel completedDesignModel=new CompletedDesignModel(orderID,clientID,business_name,serv_name,dimension,service_desc,
-                                            installation_type,input_text,sketch_img,logo_img,expected_date,clientName,orderDate,address,orderStatus,
-                                            county,town,pdf_design,phone_no);
-                                    list.add(completedDesignModel);
+                                    BookingModel bookingModel=new BookingModel(orderID,clientID,county,town,address,expectedDate,
+                                            orderDate,clientName,phoneNo,orderStatus);
+                                    list.add(bookingModel);
                                 }
                                 adapterAssigned=new AdapterAssigned(getApplicationContext(),list);
                                 recyclerView.setAdapter(adapterAssigned);
@@ -133,7 +135,15 @@ public class ProceedService extends AppCompatActivity {
                 toast.show();
                 Log.e("ERROR E ", error.toString());
             }
-        });
+        }){
+            @Override
+            protected Map<String,String> getParams()throws AuthFailureError {
+                Map<String,String>params=new HashMap<>();
+                params.put("techID",user.getClientID());
+                Log.e("PARAMS","" +params);
+                return params;
+            }
+        };
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }

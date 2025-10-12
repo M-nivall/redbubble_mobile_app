@@ -3,7 +3,7 @@ package com.example.Varsani.utils;
 public class Urls {
 
 
-   public static String ipAddress = "http://192.168.236.59/redbubble/";
+   public static String ipAddress = "http://192.168.79.223/redbubble/";
     //public static String ipAddress = "http://192.168.0.110/signsevolution/";
 
     private static final String ROOT_URL =ipAddress+ "android_files/";
@@ -114,6 +114,7 @@ public class Urls {
     public static final String URL_GET_ASSIGNED_SITES=ROOT_URL + "technician/assigned_orders.php";
     public static final String URL_GET_ASSIGNED_SERVICES=ROOT_URL + "technician/assigned_services.php";
     public static final String URL_SEND_QUOTATION=ROOT_URL + "technician/send_quotation.php";
+    public static final String URL_START_WORK=ROOT_URL + "technician/start_work.php";
     public static final String URL_CONFIRM_COMPLETION=ROOT_URL + "technician/confirm_completion.php";
 
     // Driver
@@ -138,7 +139,8 @@ public class Urls {
     public static final String URL_UPLOAD_DESIGN = ROOT_URL + "designer/upload_design.php/";
     //Tech
     public static final String URL_ASSIGNED_SERVICES=ROOT_URL + "technician/assigned_services.php";
-    public static final String URL_PROCEED_SERVICES=ROOT_URL + "technician/proceed_services.php";
+    public static final String URL_PROCEED_SERVICES=ROOT_URL + "technician/in_progress.php";
+    public static final String URL_COMPLETE_WORK=ROOT_URL + "technician/complete_work.php";
     public static final String URL_MARK_COMPLETED=ROOT_URL + "technician/confirm_complete.php";
 
 }

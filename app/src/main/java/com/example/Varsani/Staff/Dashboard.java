@@ -157,7 +157,7 @@ public class Dashboard extends AppCompatActivity {
                     startActivity(rq);
 
                 } else if (id == R.id.nav_quot_visit) {
-                    Intent qt = new Intent(getApplicationContext(), AssignedVisits.class);
+                    Intent qt = new Intent(getApplicationContext(), AssignedServices.class);
                     startActivity(qt);
 
                 } else if (id == R.id.nav_proceed_service) {

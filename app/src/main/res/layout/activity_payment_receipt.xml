@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Signs Evolution Limited"
+            android:text="Redbubble Merchandise Branding"
             android:textSize="22sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contact: +254770064000"
+            android:text="Contact: +254771045000"
             android:textSize="16sp"
             android:gravity="center"
             android:textColor="#555"
@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email: Info@signsevolution.com"
+            android:text="Email: Info@redbubble.com"
             android:textSize="16sp"
             android:gravity="center"
             android:textColor="#555"
@@ -81,7 +81,7 @@
                 android:id="@+id/receipt_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Receipt No: RD20-N0"
+                android:text="Receipt No: RM20-N0"
                 android:textSize="18sp"
                 android:textColor="#555"
                 android:layout_weight="1"
@@ -118,20 +118,72 @@
             android:textColor="#555"
             android:fontFamily="sans-serif"/>
 
-        <TextView
-            android:id="@+id/txv_serviceType"
-            android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product Items"
+                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack" />
+
+                <include layout="@layout/row_cart_items_header" />
+
+                <!-- List -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:scrollbars="vertical"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/subtotal_bar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Service Type: "
-            android:textSize="18sp"
-            android:textColor="#555"
-            android:fontFamily="sans-serif"/>
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="#F7F7FA"
+            android:elevation="2dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/label_subtotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Subtotal"
+                android:textColor="#555555"
+                android:textStyle="bold"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/txv_cart_subtotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ksh 0"
+                android:textColor="#111111"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/txv_paymentDate"
+            android:id="@+id/txv_ship_fee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Payment Date: "
+            android:text="Shipping Fee: 300"
+            android:layout_marginTop="4dp"
             android:textSize="18sp"
             android:textColor="#555"
             android:fontFamily="sans-serif"/>
@@ -141,6 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Payment Code: "
+            android:layout_marginTop="4dp"
             android:textSize="18sp"
             android:textColor="#555"
             android:fontFamily="sans-serif"/>
@@ -149,6 +202,7 @@
             android:id="@+id/txv_fee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="Amount: "
             android:textSize="18sp"
             android:textColor="#555"

@@ -66,7 +66,7 @@ public class BookingItems extends AppCompatActivity {
     //private TextView tvClientName,tvClientNo,tvEmail;
     private TextView tvPaymentID,tvPaymentDate,
             tvPaymentCode,tvAmount,tvStatus;
-    private Button btnCompletion;
+    private Button btnCompletion,btnViewReceipt;
     private CardView card_View_rating;
     private RatingBar ratingBar;
     private String orderId,paymentID;
@@ -98,6 +98,7 @@ public class BookingItems extends AppCompatActivity {
         card_View_rating = findViewById(R.id.card_View_rating);
         btnCompletion = findViewById(R.id.btnCompletion);
         ratingBar = findViewById(R.id.ratingBar);
+        btnViewReceipt = findViewById(R.id.btnViewReceipt);
 
         txv_cart_subtotal = findViewById(R.id.txv_cart_subtotal);
 
@@ -141,6 +142,20 @@ public class BookingItems extends AppCompatActivity {
         if (orderStatus.equalsIgnoreCase("Delivered")){
             card_View_rating.setVisibility(View.VISIBLE);
         }
+
+        btnViewReceipt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),PaymentReceipt.class);
+                intent.putExtra("orderID", orderId);
+                intent.putExtra("bookingDate", paymentDate);
+                intent.putExtra("paymentMode", paymentMode);
+                intent.putExtra("totalCost", totalCost);
+                intent.putExtra("paymentCode", paymentCode);
+
+                startActivity(intent);
+            }
+        });
 
         btnCompletion.setOnClickListener(view -> {
             btnCompletion.setVisibility(View.GONE);

@@ -19,9 +19,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.Varsani.Staff.Models.OrderToShipModel;
+import com.example.Varsani.Staff.Adapters.AdapterNewServPayments;
 import com.example.Varsani.R;
-import com.example.Varsani.Staff.Adapters.AdapterOrdersToShip;
+import com.example.Varsani.Staff.ShippingMrg.Adapters.AdapterShipping;
+import com.example.Varsani.Staff.ShippingMrg.Models.ShippingModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,8 +35,8 @@ import static com.example.Varsani.utils.Urls.URL_ORDERS_TO_SHIP;
 public class OrdersToShip extends AppCompatActivity {
 
 
-    private List<OrderToShipModel> list;
-    private AdapterOrdersToShip adapterOrdersToShip;
+    private List<ShippingModel>list;
+    private AdapterShipping adapterShipping;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     @Override
@@ -44,7 +45,7 @@ public class OrdersToShip extends AppCompatActivity {
         setContentView(R.layout.activity_orders_to_ship);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setSubtitle("Orders to ship");
+        getSupportActionBar().setTitle("Pending Shipment");
         recyclerView=findViewById(R.id.recyclerView);
         progressBar=findViewById(R.id.progressBar);
 
@@ -54,7 +55,7 @@ public class OrdersToShip extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
 
 
-        newOrders();
+        newShipment();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -63,7 +64,7 @@ public class OrdersToShip extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void newOrders(){
+    public void newShipment(){
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL_ORDERS_TO_SHIP,
                 new Response.Listener<String>() {
                     @Override
@@ -75,36 +76,31 @@ public class OrdersToShip extends AppCompatActivity {
                             String status=jsonObject.getString("status");
                             String msg=jsonObject.getString("message");
                             if(status.equals("1")){
-
                                 JSONArray jsonArray=jsonObject.getJSONArray("details");
                                 for(int i=0; i <jsonArray.length();i++){
                                     JSONObject jsn=jsonArray.getJSONObject(i);
                                     String orderID=jsn.getString("orderID");
-                                    String clientID=jsn.getString("clientID");
-                                    String business_name=jsn.getString("business_name");
-                                    String serv_name=jsn.getString("serv_name");
-                                    String dimension=jsn.getString("dimension");
-                                    String service_desc=jsn.getString("service_desc");
-                                    String installation_type=jsn.getString("installation_type");
-                                    String input_text=jsn.getString("input_text");
-                                    String sketch_img=jsn.getString("sketch_img");
-                                    String logo_img=jsn.getString("logo_img");
-                                    String expected_date=jsn.getString("expected_date");
+                                    String paymentID=jsn.getString("paymentID");
                                     String clientName=jsn.getString("clientName");
-                                    String orderDate=jsn.getString("orderDate");
-                                    String address=jsn.getString("address");
-                                    String orderStatus=jsn.getString("orderStatus");
+                                    String payment_code=jsn.getString("paymentCode");
+                                    String payment_mode=jsn.getString("paymentMethod");
+                                    String payment_date=jsn.getString("orderDate");
+                                    String service_fee=jsn.getString("totalAmount");
+                                    String paymentStatus=jsn.getString("paymentStatus");
+                                    String phoneNo=jsn.getString("phoneNo");
+                                    String email=jsn.getString("email");
                                     String county=jsn.getString("county");
                                     String town=jsn.getString("town");
-                                    OrderToShipModel orderToShipModel=new OrderToShipModel(orderID,clientID,business_name,serv_name,dimension,service_desc,
-                                            installation_type,input_text,sketch_img,logo_img,expected_date,clientName,orderDate,address,orderStatus,
-                                            county,town);
-                                    list.add(orderToShipModel);
-                                }
-                                adapterOrdersToShip=new AdapterOrdersToShip(getApplicationContext(),list);
-                                recyclerView.setAdapter(adapterOrdersToShip);
-                                progressBar.setVisibility(View.GONE);
+                                    String address=jsn.getString("address");
 
+                                    ShippingModel shippingModel=new ShippingModel(orderID,paymentID,clientName,
+                                            payment_code,payment_mode,payment_date,service_fee,paymentStatus,phoneNo,email,
+                                            county, town, address);
+                                    list.add(shippingModel);
+                                }
+                                adapterShipping=new AdapterShipping(getApplicationContext(),list);
+                                recyclerView.setAdapter(adapterShipping);
+                                progressBar.setVisibility(View.GONE);
 
                             }else{
                                 Toast toast=Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);

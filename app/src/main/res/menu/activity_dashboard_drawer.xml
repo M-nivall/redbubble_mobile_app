@@ -25,15 +25,15 @@
             android:title="Supplier_payments"/>
 
         <item
-            android:id="@+id/nav_orders_to_shipp"
-            android:title="Approved" />
+            android:id="@+id/nav_orders_to_ship"
+            android:title="Pending Shipment" />
         <item
             android:id="@+id/nav_shipping_orders"
-            android:title="In Shippment" />
+            android:title="In Shipment" />
 
         <item
             android:id="@+id/nav_assigned_orders"
-            android:title="Assigned" />
+            android:title="Assigned Delivery" />
         <item
             android:id="@+id/nav_arrived_orders"
             android:title="Pending Client Confirmation" />

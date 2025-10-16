@@ -6,9 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".Staff.ServMrg.ServiceCompleted">
 
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        tools:ignore="MissingConstraints" />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewOrders"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp" />
+        android:id="@+id/recyclerView"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

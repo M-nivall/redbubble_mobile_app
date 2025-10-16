@@ -46,7 +46,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.example.Varsani.utils.Urls.URL_GET_CLIENT_ITEMS;
-import static com.example.Varsani.utils.Urls.URL_MARK_ORDER;
 import static com.example.Varsani.utils.Urls.URL_QUOTATION_ITEMS;
 import static com.example.Varsani.utils.Urls.URL_SEND_QUOTATION;
 

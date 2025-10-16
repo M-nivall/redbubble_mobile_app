@@ -124,7 +124,7 @@ public class Dashboard extends AppCompatActivity {
                     Intent sp = new Intent(getApplicationContext(), SupplyPayments.class);
                     startActivity(sp);
 
-                } else if (id == R.id.nav_orders_to_shipp) {
+                } else if (id == R.id.nav_orders_to_ship) {
                     Intent as = new Intent(getApplicationContext(), OrdersToShip.class);
                     startActivity(as);
 
@@ -279,7 +279,7 @@ public class Dashboard extends AppCompatActivity {
         navigationView.getMenu().findItem(R.id.nav_approvedOrders).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_new_serv_payments).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_approved_serv_payments).setVisible(false);
-        navigationView.getMenu().findItem(R.id.nav_orders_to_shipp).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_orders_to_ship).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_shipping_orders).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_assigned_orders).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_arrived_orders).setVisible(false);
@@ -312,8 +312,8 @@ public class Dashboard extends AppCompatActivity {
                 navigationView.getMenu().findItem(R.id.nav_supplier_payments).setVisible(true);
 
 
-            } else if (user.getUser_type().equals("Shipping Manager")) {
-                navigationView.getMenu().findItem(R.id.nav_orders_to_shipp).setVisible(true);
+            } else if (user.getUser_type().equals("Dispatch manager")) {
+                navigationView.getMenu().findItem(R.id.nav_orders_to_ship).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_shipping_orders).setVisible(true);
 
             } else if (user.getUser_type().equals("Driver")) {

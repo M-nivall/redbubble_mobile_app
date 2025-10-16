@@ -1,10 +1,10 @@
-package com.example.Varsani.Staff.Driver;
+package com.example.Varsani.Staff.ShippingMrg;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import static com.example.Varsani.utils.Urls.URL_APPROVE_SERV_PAYMENTS;
+import static com.example.Varsani.utils.Urls.URL_ASSIGN_DESIGNER;
+import static com.example.Varsani.utils.Urls.URL_ASSIGN_DRIVER;
+import static com.example.Varsani.utils.Urls.URL_GET_DESIGNER;
+import static com.example.Varsani.utils.Urls.URL_GET_DRIVERS;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,9 +18,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -32,9 +40,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.Varsani.Clients.Adapters.AdapterServiceCart;
 import com.example.Varsani.Clients.Models.CartModal;
 import com.example.Varsani.Clients.Models.UserModel;
-import com.example.Varsani.Staff.Models.ClientItemsModal;
 import com.example.Varsani.R;
-import com.example.Varsani.Staff.Adapters.AdapterClientItems;
+import com.example.Varsani.Staff.Finance.PaymentDetails;
 import com.example.Varsani.utils.SessionHandler;
 import com.example.Varsani.utils.Urls;
 
@@ -48,11 +55,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static com.example.Varsani.utils.Urls.URL_ASSIGN_DRIVER;
-import static com.example.Varsani.utils.Urls.URL_DELIVER;
-import static com.example.Varsani.utils.Urls.URL_GET_CLIENT_ITEMS;
-
-public class AssignedItems extends AppCompatActivity {
+public class DeliveryDetails extends AppCompatActivity {
     private RecyclerView recyclerView;
     private final List<CartModal> list = new ArrayList<>();
     private AdapterServiceCart adapterServiceCart;
@@ -62,18 +65,23 @@ public class AssignedItems extends AppCompatActivity {
     private TextView tvClientName,tvClientNo,tvEmail,
             tvCounty,tvTown,tvLocation,
             tvAmount,tvStatus;
-    private Button btn_deliver;
+    private EditText edt_driver;
+    private Button btn_assign;
     private String orderId,clientName,phoneNo,email,paymentID;
     private String cartTotalStr = "0";
     private TextView txv_cart_subtotal;
 
+    private ArrayList<String> drivers;
+    private ArrayList<String> driverFullNames;
 
     private final NumberFormat nf = NumberFormat.getInstance(Locale.getDefault());
     private static final String TAG = "Product Items";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assigned_items);
+        //EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_delivery_details);
 
         getSupportActionBar().setSubtitle("Delivery Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -87,9 +95,14 @@ public class AssignedItems extends AppCompatActivity {
         tvAmount=findViewById(R.id.tvAmount);
         tvEmail=findViewById(R.id.tvEmail);
         tvClientNo=findViewById(R.id.tvClientNo);
-        btn_deliver = findViewById(R.id.btn_deliver);
+        edt_driver = findViewById(R.id.edt_driver);
+        btn_assign = findViewById(R.id.btn_assign);
 
         txv_cart_subtotal = findViewById(R.id.txv_cart_subtotal);
+
+        drivers = new ArrayList<>();
+        driverFullNames = new ArrayList<>();
+
 
         recyclerView      = findViewById(R.id.recyclerView);
 
@@ -126,23 +139,26 @@ public class AssignedItems extends AppCompatActivity {
         tvStatus.setText("Status: " + paymentStatus);
         tvAmount.setText("Total Paid: " + serviceFee + " ksh");
         tvEmail.setText("Email: " + email);
+        //tvBookingDate.setText("Booking Date: " + paymentDate );
         tvClientNo.setText("Phone No: " + phoneNo );
+        //tvBookingID.setText("Booking ID: " + orderID );
 
-        if (paymentStatus.equalsIgnoreCase("Delivered")){
-            btn_deliver.setVisibility(View.GONE);
-        }
-        if (paymentStatus.equalsIgnoreCase("Completed")){
-            btn_deliver.setVisibility(View.GONE);
-        }
-
-        btn_deliver.setOnClickListener(new View.OnClickListener() {
+        edt_driver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDeliver(v);
+                alertDrivers(v);
+            }
+        });
+
+        btn_assign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getAlertAssign(v);
             }
         });
 
         getProducts();
+        drivers();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -152,25 +168,97 @@ public class AssignedItems extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void alertDeliver(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirm Delivery");
+    public void drivers() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_GET_DRIVERS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Log.e("RESPONSE", response);
+                            JSONObject jsonObject = new JSONObject(response);
+                            String status = jsonObject.getString("status");
+                            String msg = jsonObject.getString("message");
 
-        //builder.setMessage("Confirm to assign the driver?");
-        builder.setPositiveButton("Delivered", new DialogInterface.OnClickListener() {
+                            if (status.equals("1")) {
+                                JSONArray jsonArray = jsonObject.getJSONArray("details");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsn = jsonArray.getJSONObject(i);
+                                    String username = jsn.getString("username");
+                                    String fullName = jsn.getString("fullName"); // Assume this field is in the JSON response
+                                    drivers.add(username);
+                                    driverFullNames.add(fullName); // Add the full name to the list
+                                }
+                            } else {
+                                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP, 0, 250);
+                                toast.show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast toast = Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.TOP, 0, 250);
+                            toast.show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Toast toast = Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP, 0, 250);
+                toast.show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }
+
+    public void alertDrivers(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select Designer");
+
+        // Create a string array of full names for the dialog
+        String[] fullNamesArray = driverFullNames.toArray(new String[0]);
+
+        builder.setItems(fullNamesArray, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // When an instructor is selected, set the username in the EditText
+                edt_driver.setText(drivers.get(which)); // Get the corresponding username
+            }
+        });
+
+        builder.show();
+    }
+
+    public void getAlertAssign(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Schedule delivery");
+
+        builder.setMessage("Confirm to assign the driver?");
+        builder.setPositiveButton("Assign", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //progressBar1.setVisibility(View.VISIBLE);
-                deliver();
+                assign();
             }
         });
         builder.setNegativeButton("Cancel", null);
         builder.show();
     }
 
-    public void deliver() {
+    public void assign() {
+        final String username = edt_driver.getText().toString().trim();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_DELIVER,
+        if (TextUtils.isEmpty(username)) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Please select Driver", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP, 0, 250);
+            toast.show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ASSIGN_DRIVER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -209,6 +297,10 @@ public class AssignedItems extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("orderID", orderId);
+                params.put("username", username);
+                params.put("clientName", clientName);
+                params.put("phoneNo", phoneNo);
+                params.put("email", email);
                 Log.e("Params", "" + params);
                 return params;
             }
@@ -315,5 +407,4 @@ public class AssignedItems extends AppCompatActivity {
             return raw;
         }
     }
-
 }

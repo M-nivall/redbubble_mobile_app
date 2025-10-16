@@ -3,7 +3,7 @@ package com.example.Varsani.utils;
 public class Urls {
 
 
-   public static String ipAddress = "http://192.168.79.223/redbubble/";
+   public static String ipAddress = "http://192.168.100.215/redbubble/";
     //public static String ipAddress = "http://192.168.0.110/signsevolution/";
 
     private static final String ROOT_URL =ipAddress+ "android_files/";
@@ -64,6 +64,7 @@ public class Urls {
     public static final String URL_MARK_DELIVERED= ROOT_URL+"client/mark_delivered.php";
     public static final String URL_MARK_REJECTED= ROOT_URL+"client/mark_rejected.php";
     public static final String URL_MARK_COMPLETE= ROOT_URL+"client/mark_completed.php";
+    public static final String URL_CONFIRM_DELIVERED = ROOT_URL+"client/confirm_delivered.php";
 
     //invoices
     public static final String URL_GET_INVOICE= ROOT_URL+"client/invoice_history.php";
@@ -88,6 +89,7 @@ public class Urls {
     //shipping mrg
     public static final String URL_ORDERS_TO_SHIP=ROOT_URL + "ship_mrg/orders_to_ship.php";
     public static final String URL_GET_DRIVERS=ROOT_URL + "ship_mrg/get_drivers.php";
+    public static final String URL_ASSIGN_DRIVER=ROOT_URL + "ship_mrg/assign_driver.php";
     public static final String URL_SHIP_ORDER=ROOT_URL + "ship_mrg/ship_order.php";
     public static final String URL_SHIPPING_ORDERS=ROOT_URL + "ship_mrg/shipping_orders.php";
     public static final String URL_APPROVE_TENDER=ROOT_URL + "ship_mrg/approve_tender.php";
@@ -118,10 +120,11 @@ public class Urls {
     public static final String URL_CONFIRM_COMPLETION=ROOT_URL + "technician/confirm_completion.php";
 
     // Driver
+
     public static final String URL_GET_ASSIGNED_ORDERS=ROOT_URL + "driver/assigned_orders.php";
-    public static final String URL_GET_MARKED_ORDERS=ROOT_URL + "driver/arrived_orders.php";
-    public static final String URL_GET_DELIVERED_ORDERS=ROOT_URL + "driver/delivered_orders.php";
-    public static final String URL_MARK_ORDER=ROOT_URL + "driver/mark_arrived.php";
+    public static final String URL_ARRIVED_ORDERS=ROOT_URL + "driver/arrived_orders.php";
+    public static final String URL_DELIVERED_ORDERS=ROOT_URL + "driver/delivered_orders.php";
+    public static final String URL_DELIVER=ROOT_URL + "driver/deliver.php";
     //Store mrg
     public static final String URL_GET_STOCK=ROOT_URL + "stock_mrg/stock.php";
     public static final String URL_ADD_STOCK=ROOT_URL + "stock_mrg/add_stock.php";

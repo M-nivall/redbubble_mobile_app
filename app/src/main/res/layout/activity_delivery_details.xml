@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Clients.BookingItems">
+    tools:context=".Staff.ShippingMrg.DeliveryDetails">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Booking Details"
+                    android:text="Delivery Details"
                     android:textSize="18sp"
                     android:layout_gravity="center"
                     android:textStyle="bold|italic"
@@ -43,17 +43,63 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="16dp">
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Product Items"
+                            android:text="Client Details"
                             android:textSize="16sp"
                             android:layout_gravity="center"
                             android:textStyle="bold"
                             android:textColor="@color/colorBlack" />
 
-                        <include layout="@layout/row_cart_items_header" />
+
+                        <TextView
+                            android:id="@+id/tvClientName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Client Name"
+                            android:textColor="@color/colorBlack"/>
+
+                        <TextView
+                            android:id="@+id/tvClientNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phone Number"
+                            android:textColor="@color/colorBlack"/>
+
+                        <TextView
+                            android:id="@+id/tvEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textColor="@color/colorBlack"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Items To Deliver"
+                            android:textSize="16sp"
+                            android:layout_gravity="center"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorBlack" />
+
+                        <include layout="@layout/row_cart_header" />
 
                         <!-- List -->
                         <androidx.recyclerview.widget.RecyclerView
@@ -97,6 +143,16 @@
                         android:textStyle="bold"
                         android:textSize="16sp" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Amount"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"/>
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,7 +169,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Payment Details"
+                            android:text="Shipping Location"
                             android:textSize="16sp"
                             android:layout_gravity="center"
                             android:textStyle="bold"
@@ -121,46 +177,25 @@
 
 
                         <TextView
-                            android:id="@+id/tvPaymentID"
+                            android:id="@+id/tvCounty"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Order ID"
+                            android:text="County"
                             android:textColor="@color/colorBlack"/>
 
                         <TextView
-                            android:id="@+id/tvPaymentDate"
+                            android:id="@+id/tvTown"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Payment Date"
+                            android:text="Town"
                             android:textColor="@color/colorBlack"/>
                         <TextView
-                            android:visibility="gone"
-                            android:id="@+id/tvPaymentMode"
+                            android:id="@+id/tvLocation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Payment Mode"
+                            android:text="Location"
                             android:textColor="@color/colorBlack"/>
 
-                        <TextView
-                            android:id="@+id/tvPaymentCode"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Payment Code"
-                            android:textColor="@color/colorBlack"/>
-                        <TextView
-                            android:id="@+id/tvShipFee"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Shipping Fee: 300 ksh"
-                            android:textColor="@color/colorBlack"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/tvAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Amount"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorBlack"/>
                         <TextView
                             android:id="@+id/tvStatus"
                             android:layout_width="wrap_content"
@@ -171,54 +206,57 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:visibility="gone"
-                    android:id="@+id/card_View_rating"
+                    android:id="@+id/cardDesigner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
-                    app:cardBackgroundColor="@color/white">
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Schedule Delivery"
+                            android:textSize="16sp"
+                            android:layout_gravity="center"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorBlack" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Rate Our Services"
-                            android:textSize="20sp"
+                            android:text="Assign Driver:"
+                            android:textSize="16sp"
                             android:textStyle="bold"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black"
-                            android:paddingBottom="12dp" />
+                            android:textColor="@color/colorBlack"
+                            android:paddingBottom="4dp"/>
 
-                        <!-- RatingBar -->
-                        <RatingBar
-                            android:id="@+id/ratingBar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:numStars="5"
-                            android:rating="0"
-                            android:stepSize="1.0"
-                            android:layout_gravity="center"
-                            android:paddingBottom="10dp" />
-
-                        <!-- Checkout Button -->
-                        <Button
-                            android:id="@+id/btnCompletion"
+                        <EditText
+                            android:id="@+id/edt_driver"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Confirm Delivered"
-                            android:backgroundTint="@android:color/holo_red_light"
-                            android:textColor="@android:color/white"
-                            android:layout_marginTop="16dp" />
-
+                            android:hint="Select Driver"
+                            android:textSize="16sp"
+                            android:padding="12dp"
+                            android:background="@drawable/edittext_background1"
+                            android:drawableStart="@drawable/ic_dropdown"
+                            android:focusable="false"
+                            android:clickable="true"
+                            android:inputType="none"/>
+                        <Button
+                            android:id="@+id/btn_assign"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Assign"
+                            android:layout_marginTop="12dp"
+                            android:background="@color/colorPrimary"/>
                     </LinearLayout>
-
                 </androidx.cardview.widget.CardView>
 
                 <ProgressBar

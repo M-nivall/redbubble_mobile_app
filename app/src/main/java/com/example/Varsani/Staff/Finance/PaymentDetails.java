@@ -161,7 +161,6 @@ public class PaymentDetails extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public void approveOrder(){
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL_APPROVE_SERV_PAYMENTS,
                 new Response.Listener<String>() {

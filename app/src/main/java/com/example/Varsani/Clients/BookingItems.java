@@ -1,6 +1,7 @@
 package com.example.Varsani.Clients;
 
 import static com.example.Varsani.utils.Urls.URL_APPROVE_SERV_PAYMENTS;
+import static com.example.Varsani.utils.Urls.URL_CONFIRM_DELIVERED;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,11 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -41,6 +44,7 @@ import com.example.Varsani.utils.SessionHandler;
 import com.example.Varsani.utils.Urls;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.NumberFormat;
@@ -62,7 +66,9 @@ public class BookingItems extends AppCompatActivity {
     //private TextView tvClientName,tvClientNo,tvEmail;
     private TextView tvPaymentID,tvPaymentDate,
             tvPaymentCode,tvAmount,tvStatus;
-    private Button btn_approve,btn_reject;
+    private Button btnCompletion;
+    private CardView card_View_rating;
+    private RatingBar ratingBar;
     private String orderId,paymentID;
     private String cartTotalStr = "0";
     private TextView txv_cart_subtotal;
@@ -88,15 +94,12 @@ public class BookingItems extends AppCompatActivity {
         tvPaymentCode=findViewById(R.id.tvPaymentCode);
         tvStatus=findViewById(R.id.tvStatus);
         tvAmount=findViewById(R.id.tvAmount);
-        //tvEmail=findViewById(R.id.tvEmail);
-        //tvBookingDate=findViewById(R.id.tvBookingDate);
-        //tvClientNo=findViewById(R.id.tvClientNo);
+
+        card_View_rating = findViewById(R.id.card_View_rating);
+        btnCompletion = findViewById(R.id.btnCompletion);
+        ratingBar = findViewById(R.id.ratingBar);
 
         txv_cart_subtotal = findViewById(R.id.txv_cart_subtotal);
-
-
-
-        btn_approve=findViewById(R.id.btn_submit);
 
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -135,11 +138,14 @@ public class BookingItems extends AppCompatActivity {
         //tvClientNo.setText("Phone No: " + phoneNo );
         //tvBookingID.setText("Booking ID: " + orderID );
 
-        btn_approve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertApprove();
-            }
+        if (orderStatus.equalsIgnoreCase("Delivered")){
+            card_View_rating.setVisibility(View.VISIBLE);
+        }
+
+        btnCompletion.setOnClickListener(view -> {
+            btnCompletion.setVisibility(View.GONE);
+            card_View_rating.setVisibility(View.GONE);
+            arrived(orderId);
         });
 //         btn_reject.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -330,5 +336,46 @@ public class BookingItems extends AppCompatActivity {
         } catch (Exception e) {
             return raw;
         }
+    }
+
+    private void arrived(String orderId) {
+
+        final Float ratingValue = ratingBar.getRating();
+
+        // Check if the rating is 0.0 (empty rating)
+        if (ratingValue == 0.0f) {
+            Toast.makeText(getApplicationContext(), "Please rate our service", Toast.LENGTH_SHORT).show();
+            btnCompletion.setVisibility(View.VISIBLE);
+            return; // Do not proceed with the request
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_CONFIRM_DELIVERED,
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.getString("status").equals("success")) {
+                            Toast.makeText(BookingItems.this, "Thanks for for shopping with Redbubble.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(BookingItems.this, "Failed, something went wrong.", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(BookingItems.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(BookingItems.this, "Volley error: " + error.getMessage(), Toast.LENGTH_SHORT).show()) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("orderID", orderId);
+                params.put("clientID", user.getClientID());
+                params.put("rating", String.valueOf(ratingValue));
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }

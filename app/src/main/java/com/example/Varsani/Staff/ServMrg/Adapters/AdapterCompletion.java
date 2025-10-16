@@ -1,4 +1,4 @@
-package com.example.Varsani.Staff.Adapters;
+package com.example.Varsani.Staff.ServMrg.Adapters;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,19 +10,19 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.Varsani.Staff.Finance.Models.PaymentModel;
-import com.example.Varsani.Staff.Finance.OrderDetails;
-import com.example.Varsani.Staff.Finance.PaymentDetails;
-import com.example.Varsani.Staff.Models.ClientOrderModel;
-import com.example.Varsani.utils.SessionHandler;
 import com.example.Varsani.Clients.Models.UserModel;
 import com.example.Varsani.R;
+import com.example.Varsani.Staff.Adapters.AdapterNewServPayments;
+import com.example.Varsani.Staff.Finance.Models.PaymentModel;
+import com.example.Varsani.Staff.Finance.PaymentDetails;
+import com.example.Varsani.Staff.ServMrg.Models.CompletionModel;
+import com.example.Varsani.Staff.ServMrg.ViewCompletedItems;
+import com.example.Varsani.utils.SessionHandler;
 
 import java.util.List;
 
-public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private List<PaymentModel> items;
+public class AdapterCompletion extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private List<CompletionModel> items;
 
     private Context ctx;
     ProgressDialog progressDialog;
@@ -46,7 +46,7 @@ public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.Vi
 //        this.onMoreButtonClickListener = onMoreButtonClickListener;
 //    }
 
-    public AdapterNewServPayments(Context context, List<PaymentModel> items) {
+    public AdapterCompletion(Context context, List<CompletionModel> items) {
         this.items = items;
         ctx = context;
     }
@@ -71,21 +71,21 @@ public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.Vi
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lv_client_orders, parent, false);
-        vh = new OriginalViewHolder(v);
+        vh = new AdapterCompletion.OriginalViewHolder(v);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof OriginalViewHolder) {
-            final OriginalViewHolder view = (OriginalViewHolder) holder;
+        if (holder instanceof AdapterCompletion.OriginalViewHolder) {
+            final AdapterCompletion.OriginalViewHolder view = (AdapterCompletion.OriginalViewHolder) holder;
 
-            final PaymentModel o= items.get(position);
+            final CompletionModel o= items.get(position);
 
             view.txv_bookingId.setText("Booking ID: " + o.getOrderID());
             view.txv_clientName.setText("Client Name: " + o.getClientName());
-            view.txv_paymentDate.setText("Payment Date: "+o.getPayment_date());
+            view.txv_paymentDate.setText("Date: "+o.getPayment_date());
             view.txv_status.setText("Status: "+o.getPaymentStatus());
 
 
@@ -93,7 +93,7 @@ public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.Vi
                 @Override
                 public void onClick(View v) {
 
-                    Intent in=new Intent(ctx, PaymentDetails.class);
+                    Intent in=new Intent(ctx, ViewCompletedItems.class);
                     in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     in.putExtra("orderID", o.getOrderID());
                     in.putExtra("paymentID",o.getPaymentID());
@@ -105,6 +105,7 @@ public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.Vi
                     in.putExtra("paymentDate",o.getPayment_date());
                     in.putExtra("serviceFee",o.getService_fee());
                     in.putExtra("paymentStatus",o.getPaymentStatus());
+                    in.putExtra("rating",o.getRating());
                     ctx.startActivity(in);
 
 
@@ -118,5 +119,4 @@ public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.Vi
     public int getItemCount() {
         return items.size();
     }
-
 }

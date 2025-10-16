@@ -1,4 +1,4 @@
-package com.example.Varsani.Staff.Adapters;
+package com.example.Varsani.Staff.Driver.Adapters;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,19 +10,19 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.Varsani.Staff.Finance.Models.PaymentModel;
-import com.example.Varsani.Staff.Finance.OrderDetails;
-import com.example.Varsani.Staff.Finance.PaymentDetails;
-import com.example.Varsani.Staff.Models.ClientOrderModel;
-import com.example.Varsani.utils.SessionHandler;
 import com.example.Varsani.Clients.Models.UserModel;
 import com.example.Varsani.R;
+import com.example.Varsani.Staff.Driver.AssignedItems;
+import com.example.Varsani.Staff.ShippingMrg.Adapters.AdapterShipping;
+import com.example.Varsani.Staff.ShippingMrg.DeliveryDetails;
+import com.example.Varsani.Staff.ShippingMrg.Models.ShippingModel;
+import com.example.Varsani.utils.SessionHandler;
 
 import java.util.List;
 
-public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterDelivery extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private List<PaymentModel> items;
+    private List<ShippingModel> items;
 
     private Context ctx;
     ProgressDialog progressDialog;
@@ -46,14 +46,14 @@ public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.Vi
 //        this.onMoreButtonClickListener = onMoreButtonClickListener;
 //    }
 
-    public AdapterNewServPayments(Context context, List<PaymentModel> items) {
+    public AdapterDelivery(Context context, List<ShippingModel> items) {
         this.items = items;
         ctx = context;
     }
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txv_bookingId,txv_clientName, txv_paymentDate,txv_status;
+        public TextView txv_bookingId,txv_clientName, txv_county,txv_status;
 
 
         public OriginalViewHolder(View v) {
@@ -61,7 +61,7 @@ public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.Vi
 
             txv_clientName =v.findViewById(R.id.txv_clientName);
             txv_bookingId =v.findViewById(R.id.txv_bookingId);
-            txv_paymentDate = v.findViewById(R.id.txv_paymentDate);
+            txv_county = v.findViewById(R.id.txv_county);
             txv_status = v.findViewById(R.id.txv_status);
 
         }
@@ -70,22 +70,22 @@ public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lv_client_orders, parent, false);
-        vh = new OriginalViewHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lv_ship_order, parent, false);
+        vh = new AdapterDelivery.OriginalViewHolder(v);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof OriginalViewHolder) {
-            final OriginalViewHolder view = (OriginalViewHolder) holder;
+        if (holder instanceof AdapterDelivery.OriginalViewHolder) {
+            final AdapterDelivery.OriginalViewHolder view = (AdapterDelivery.OriginalViewHolder) holder;
 
-            final PaymentModel o= items.get(position);
+            final ShippingModel o= items.get(position);
 
             view.txv_bookingId.setText("Booking ID: " + o.getOrderID());
             view.txv_clientName.setText("Client Name: " + o.getClientName());
-            view.txv_paymentDate.setText("Payment Date: "+o.getPayment_date());
+            view.txv_county.setText("Location: "+o.getCounty() + "-" + o.getTown());
             view.txv_status.setText("Status: "+o.getPaymentStatus());
 
 
@@ -93,7 +93,7 @@ public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.Vi
                 @Override
                 public void onClick(View v) {
 
-                    Intent in=new Intent(ctx, PaymentDetails.class);
+                    Intent in=new Intent(ctx, AssignedItems.class);
                     in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     in.putExtra("orderID", o.getOrderID());
                     in.putExtra("paymentID",o.getPaymentID());
@@ -105,6 +105,9 @@ public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.Vi
                     in.putExtra("paymentDate",o.getPayment_date());
                     in.putExtra("serviceFee",o.getService_fee());
                     in.putExtra("paymentStatus",o.getPaymentStatus());
+                    in.putExtra("county",o.getCounty());
+                    in.putExtra("town",o.getTown());
+                    in.putExtra("address",o.getAddress());
                     ctx.startActivity(in);
 
 
@@ -118,5 +121,4 @@ public class AdapterNewServPayments extends RecyclerView.Adapter<RecyclerView.Vi
     public int getItemCount() {
         return items.size();
     }
-
 }

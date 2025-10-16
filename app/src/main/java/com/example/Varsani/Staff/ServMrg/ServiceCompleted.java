@@ -1,13 +1,19 @@
 package com.example.Varsani.Staff.ServMrg;
 
+import static com.example.Varsani.utils.Urls.URL_NEW_SERV_PAYMENTS;
 import static com.example.Varsani.utils.Urls.URL_SERVICE_COMPLETED;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -15,10 +21,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.Varsani.R;
+import com.example.Varsani.Staff.Adapters.AdapterNewServPayments;
+import com.example.Varsani.Staff.Finance.Models.PaymentModel;
+import com.example.Varsani.Staff.ServMrg.Adapters.AdapterCompletion;
 import com.example.Varsani.Staff.ServMrg.Adapters.AdapterServiceCompleted;
 import com.example.Varsani.Staff.ServMrg.Models.CompletedModel;
+import com.example.Varsani.Staff.ServMrg.Models.CompletionModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,23 +40,28 @@ import java.util.List;
 
 public class ServiceCompleted extends AppCompatActivity {
 
+    private List<CompletionModel>list;
+    private AdapterCompletion adapterCompletion;
+    private ProgressBar progressBar;
     private RecyclerView recyclerView;
-    private AdapterServiceCompleted adapterServiceCompleted;
-    private List<CompletedModel> orderList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_completed);
 
-        recyclerView = findViewById(R.id.recyclerViewOrders);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        orderList = new ArrayList<>();
-        adapterServiceCompleted = new AdapterServiceCompleted(this, orderList);
-        recyclerView.setAdapter(adapterServiceCompleted);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Completed Services");
+        recyclerView=findViewById(R.id.recyclerView);
+        progressBar=findViewById(R.id.progressBar);
 
-        // Call the method to fetch data
-        fetchOrders();
+        list=new ArrayList<>();
+        recyclerView.setLayoutManager( new LinearLayoutManager( getApplicationContext() ) );
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
+        recyclerView.setLayoutManager(mLayoutManager);
+
+
+        newOrders();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -55,54 +71,75 @@ public class ServiceCompleted extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void fetchOrders() {
-        String url = URL_SERVICE_COMPLETED;
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
+    public void newOrders(){
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL_SERVICE_COMPLETED,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(String response) {
+
                         try {
-                            // Check for status in the response
-                            if (response.getString("status").equals("1")) {
-                                JSONArray orders = response.getJSONArray("details");
-                                for (int i = 0; i < orders.length(); i++) {
-                                    JSONObject order = orders.getJSONObject(i);
+                            Log.e("RESPONSE", response);
+                            JSONObject jsonObject=new JSONObject(response);
+                            String status=jsonObject.getString("status");
+                            String msg=jsonObject.getString("message");
+                            if(status.equals("1")){
+                                JSONArray jsonArray=jsonObject.getJSONArray("details");
+                                for(int i=0; i <jsonArray.length();i++){
+                                    JSONObject jsn=jsonArray.getJSONObject(i);
+                                    String orderID=jsn.getString("orderID");
+                                    String paymentID=jsn.getString("paymentID");
+                                    String clientName=jsn.getString("clientName");
+                                    String payment_code=jsn.getString("paymentCode");
+                                    String payment_mode=jsn.getString("paymentMethod");
+                                    String payment_date=jsn.getString("orderDate");
+                                    String service_fee=jsn.getString("totalAmount");
+                                    String paymentStatus=jsn.getString("paymentStatus");
+                                    String phoneNo=jsn.getString("phoneNo");
+                                    String email=jsn.getString("email");
+                                    String rating=jsn.getString("rating");
 
-                                    String orderID = order.getString("orderID");
-                                    String servName = order.getString("servName");
-                                    String clientName = order.getString("clientName");
-                                    String orderDate = order.getString("orderDate");
-                                    String expectedDate = order.getString("expectedDate");
-                                    String address = order.getString("address");
-                                    String techName = order.getString("techName");
-                                    String orderRemark = order.getString("orderRemark");
-                                    String orderStatus = order.getString("orderStatus");
-                                    String county = order.getString("county");
-                                    String town = order.getString("town");
-
-                                    orderList.add(new CompletedModel(orderID, clientName, servName, orderDate, expectedDate, address, techName, orderRemark, orderStatus, county, town));
+                                    CompletionModel completionModel=new CompletionModel(orderID,paymentID,clientName,
+                                            payment_code,payment_mode,payment_date,service_fee,paymentStatus,phoneNo,email,rating);
+                                    list.add(completionModel);
                                 }
-                                adapterServiceCompleted.notifyDataSetChanged();
-                            } else {
-                                Toast.makeText(ServiceCompleted.this, response.getString("message"), Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(ServiceCompleted.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Toast.makeText(ServiceCompleted.this, "Error fetching data!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                                adapterCompletion=new AdapterCompletion(getApplicationContext(),list);
+                                recyclerView.setAdapter(adapterCompletion);
+                                progressBar.setVisibility(View.GONE);
 
-        requestQueue.add(jsonObjectRequest);
+                            }else{
+                                Toast toast=Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP,0,250);
+                                toast.show();
+                                progressBar.setVisibility(View.GONE);
+                            }
+
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            Toast toast=Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.TOP,0,250);
+                            toast.show();
+                            Log.e("ERROR E ", e.toString());
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Toast toast=Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP,0,250);
+                toast.show();
+                Log.e("ERROR E ", error.toString());
+            }
+        });
+        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 }

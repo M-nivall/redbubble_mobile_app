@@ -41,7 +41,6 @@ import java.util.Map;
 
 import static com.example.Varsani.utils.Urls.URL_ASSIGNED_DESIGNS;
 import static com.example.Varsani.utils.Urls.URL_ASSIGNED_SERVICES;
-import static com.example.Varsani.utils.Urls.URL_GET_ASSIGNED_ORDERS;
 import static com.example.Varsani.utils.Urls.URL_GET_ASSIGNED_SERVICES;
 import static com.example.Varsani.utils.Urls.URL_GET_ASSIGNED_SITES;
 

@@ -44,7 +44,7 @@ public class ApproveSupply extends AppCompatActivity {
 
     private Button btn_submit;
     private ProgressBar progressBar;
-    private String requestID, supplierID;
+    private String requestID, color, supplierID;
 
     private SessionHandler session;
     private UserModel user;
@@ -72,11 +72,12 @@ public class ApproveSupply extends AppCompatActivity {
 
         Intent in=getIntent();
         requestID=in.getStringExtra("requestID");
+        color=in.getStringExtra("color");
 
 
         txv_requestID.setText("Tender ID: "+in.getStringExtra("requestID"));
         edt_quotation.setText("Supplier Name: "+in.getStringExtra("supplier"));
-        txv_items.setText("Tender: "+in.getStringExtra("item"));
+        txv_items.setText("Tender: "+in.getStringExtra("item") + "-" + color);
         txv_requestDate.setText("Date: "+in.getStringExtra("requestDate"));
         txv_requestStatus.setText("Status: "+in.getStringExtra("requestStatus"));
         txv_amount.setText("Invoiced Amount: "+in.getStringExtra("amount"));
@@ -138,6 +139,7 @@ public class ApproveSupply extends AppCompatActivity {
                 Map<String,String> params=new HashMap<>();
 
                 params.put("requestID",requestID);
+                params.put("color",color);
                 Log.e("PARAMS",""+params);
                 return params;
             }

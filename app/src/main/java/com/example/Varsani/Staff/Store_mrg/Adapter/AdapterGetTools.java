@@ -87,7 +87,7 @@ public class AdapterGetTools extends RecyclerView.Adapter<AdapterGetTools.Origin
         final GetToolModel tool = items.get(position);
 
         holder.txv_title.setText(tool.getColor() + " " + tool.getCategory());
-        holder.txv_quantity.setText("Quantity: " + tool.getQuantity());
+        holder.txv_quantity.setText("Qty: " + tool.getQuantity());
         holder.txv_toolID.setText("#ID: " + tool.getStockID());
 
         // Change card color based on category

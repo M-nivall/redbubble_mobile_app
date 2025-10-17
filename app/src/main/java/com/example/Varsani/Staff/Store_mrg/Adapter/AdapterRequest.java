@@ -104,6 +104,7 @@ public class AdapterRequest extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         in.putExtra("amount", o.getAmount());
                         in.putExtra("requestStatus", o.getRequestStatus());
                         in.putExtra("requestDate", o.getRequestDate());
+                        in.putExtra("color", o.getColor());
                         ctx.startActivity(in);
                     } else {
                         // Optionally, show a message to the user indicating that action is not allowed

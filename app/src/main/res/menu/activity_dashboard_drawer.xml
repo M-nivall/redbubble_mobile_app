@@ -22,7 +22,7 @@
             android:title="Approved Service Payments"/>
         <item
             android:id="@+id/nav_supplier_payments"
-            android:title="Supplier_payments"/>
+            android:title="Supplier Payments"/>
 
         <item
             android:id="@+id/nav_orders_to_ship"

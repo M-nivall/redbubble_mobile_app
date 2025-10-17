@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Signs Evolution Supplier Login"
+                android:text="Redbubble Supplier Login"
                 android:id="@+id/txv_stafflogin"
                 android:textSize="25sp"
                 android:textAlignment="center"

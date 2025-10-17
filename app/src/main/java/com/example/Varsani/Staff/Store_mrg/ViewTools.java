@@ -1,5 +1,7 @@
 package com.example.Varsani.Staff.Store_mrg;
 
+import static com.example.Varsani.utils.Urls.URL_SUPPLIER;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,13 +15,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.Varsani.R;
@@ -34,9 +33,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewTools extends AppCompatActivity {
+
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private List<GetToolModel> list;
+    private List<String> supplierList;
     private AdapterGetTools adapterGetTools;
 
     @Override
@@ -44,20 +45,26 @@ public class ViewTools extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_tools);
 
-        getSupportActionBar().setSubtitle("Stock");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        progressBar=findViewById(R.id.progressBar);
-        recyclerView=findViewById(R.id.recyclerView);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setSubtitle("Stock");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
-        list=new ArrayList<>();
+        progressBar = findViewById(R.id.progressBar);
+        recyclerView = findViewById(R.id.recyclerView);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        RecyclerView.LayoutManager layoutManager=new GridLayoutManager(getApplicationContext(),2);
-        recyclerView.setLayoutManager(layoutManager);
+        supplierList = new ArrayList<>();
+        list = new ArrayList<>();
 
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        adapterGetTools = new AdapterGetTools(ViewTools.this, list, supplierList);
+        recyclerView.setAdapter(adapterGetTools);
 
         getStock();
+        fetchSupplierList();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -65,6 +72,7 @@ public class ViewTools extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_bar, menu);
@@ -73,80 +81,100 @@ public class ViewTools extends AppCompatActivity {
         search(searchView);
         return true;
     }
-    private void search(SearchView searchView) {
 
+    private void search(SearchView searchView) {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return false;
-            }
+            public boolean onQueryTextSubmit(String query) { return false; }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 adapterGetTools.getFilter().filter(newText);
-
                 return true;
             }
-
         });
     }
-    public void getStock(){
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Urls.URL_GET_TOOLS,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
 
-                        try {
+    public void getStock() {
+        progressBar.setVisibility(View.VISIBLE);
 
-                            Log.e("RESPONSE",response);
-                            JSONObject jsonObject=new JSONObject(response);
-                            String status=jsonObject.getString("status");
-                            String msg=jsonObject.getString("message");
-                            if (status.equals("1")){
-                                JSONArray jsonArray=jsonObject.getJSONArray("details");
-                                for(int i=0;i <jsonArray.length();i++){
-                                    JSONObject jsn=jsonArray.getJSONObject(i);
-                                    String stockID=jsn.getString("stockID");
-                                    String category=jsn.getString("category");
-                                    String quantity=jsn.getString("quantity");
-                                    String color=jsn.getString("color");
-                                    String description=jsn.getString("description");
-                                    GetToolModel getToolModel=new GetToolModel(stockID,category,quantity,color,description);
-                                    list.add(getToolModel);
-                                }
-                                adapterGetTools=new AdapterGetTools(getApplicationContext(),list);
-                                recyclerView.setAdapter(adapterGetTools);
-                                progressBar.setVisibility(View.GONE);
-                            }else{
-                                Toast toast=Toast.makeText(getApplicationContext(),msg.toString(),Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.TOP,0,250);
-                                toast.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_GET_TOOLS,
+                response -> {
+                    try {
+                        Log.e("RESPONSE", response);
+                        JSONObject jsonObject = new JSONObject(response);
+                        String status = jsonObject.getString("status");
+                        String msg = jsonObject.getString("message");
+
+                        if (status.equals("1")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("details");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsn = jsonArray.getJSONObject(i);
+                                String stockID = jsn.getString("stockID");
+                                String category = jsn.getString("category");
+                                String quantity = jsn.getString("quantity");
+                                String color = jsn.getString("color");
+                                String description = jsn.getString("description");
+
+                                list.add(new GetToolModel(stockID, category, quantity, color, description));
                             }
-                        }catch (Exception e){
-                            e.printStackTrace();
-                            Toast toast=Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.TOP,0,250);
-                            toast.show();
-                        }
 
+                            adapterGetTools.notifyDataSetChanged();
+                        } else {
+                            showToast(msg);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        showToast(e.toString());
+                    } finally {
+                        progressBar.setVisibility(View.GONE);
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Toast toast=Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP,0,250);
-                toast.show();
-            }
-        });
-        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
+                },
+                error -> {
+                    error.printStackTrace();
+                    progressBar.setVisibility(View.GONE);
+                    showToast(error.toString());
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
+    public void fetchSupplierList() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_SUPPLIER,
+                response -> {
+                    try {
+                        Log.e("RESPONSE", response);
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.getString("status").equals("1")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("details");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsn = jsonArray.getJSONObject(i);
+                                supplierList.add(jsn.getString("username"));
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        showToast(e.toString());
+                    }
+                },
+                error -> {
+                    error.printStackTrace();
+                    showToast(error.toString());
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void showToast(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP, 0, 250);
+        toast.show();
+    }
+
     @Override
-    public void onRestart()
-    {
+    protected void onRestart() {
         super.onRestart();
         finish();
         startActivity(getIntent());

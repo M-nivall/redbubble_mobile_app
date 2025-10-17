@@ -1,63 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp"
+    app:cardUseCompatPadding="true"
+    android:backgroundTint="@android:color/white">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txv_requestID"
-                    android:text="ID"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/colorBlack"/>
+        <!-- Request ID -->
+        <TextView
+            android:id="@+id/txv_requestID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Request ID: #0012"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginBottom="6dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txv_items"
-                    android:text="Item"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/colorBlack"/>
-                <TextView
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txv_supply_quantity"
-                    android:text="Quantity"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/colorBlack"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txv_requestDate"
-                    android:text="Date"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/colorBlack"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txv_requestStatus"
-                    android:text="Status"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/colorBlack"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/black" />
-            </LinearLayout>
+        <!-- Item -->
+        <TextView
+            android:id="@+id/txv_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Item: Steel Rods"
+            android:textSize="15sp"
+            android:textColor="@color/colorBlack"
+            android:layout_marginBottom="6dp" />
 
-</LinearLayout>
+        <!-- Quantity (hidden by default) -->
+        <TextView
+            android:id="@+id/txv_supply_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quantity: 10"
+            android:textSize="15sp"
+            android:textColor="@color/colorBlack"
+            android:visibility="gone"
+            android:layout_marginBottom="6dp" />
+
+        <!-- Request Date -->
+        <TextView
+            android:id="@+id/txv_requestDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date: 18 Oct 2025"
+            android:textSize="14sp"
+            android:textColor="@color/colorBlack"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Status Badge -->
+        <TextView
+            android:id="@+id/txv_requestStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status: Pending"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/colorAccent"
+            android:background="@drawable/status_background"
+            android:layout_marginBottom="6dp"
+            android:layout_gravity="start" />
+
+        <!-- Divider Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

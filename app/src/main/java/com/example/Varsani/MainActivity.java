@@ -245,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView.getMenu().findItem(R.id.nav_bookings).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_my_bookings).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_completion).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_invoice).setVisible(false);
 
         if (session.isLoggedIn()) {
             // Hide auth/register entries for logged-in users

@@ -77,6 +77,9 @@
         <item
             android:id="@+id/nav_assigned_services"
             android:title="Assigned Services"/>
+        <item
+            android:id="@+id/nav_assigned_designs"
+            android:title="Assigned Designs"/>
 
         <item
             android:id="@+id/nav_staff_feedback"
@@ -84,10 +87,6 @@
         <item
             android:id="@+id/nav_supplies"
             android:title="Supply Request" />
-
-        <item
-            android:id="@+id/nav_assigned_designs"
-            android:title="Assigned Designs"/>
         <item
             android:id="@+id/nav_logout"
             android:title="Logout" />

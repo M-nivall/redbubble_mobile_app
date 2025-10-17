@@ -79,11 +79,11 @@ public class AdapterMyRequest extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             final MyRequetsModel o= items.get(position);
 
-            view.txv_requestID.setText(" No: "+o.getRequestID());
-            view.txv_requestDate.setText(o.getRequestDate());
+            view.txv_requestID.setText(" Request ID: "+o.getRequestID());
+            view.txv_requestDate.setText("Date: " + o.getRequestDate());
             view.txv_requestStatus.setText("Status: "+o.getRequestStatus());
-            view.txv_items.setText("Items: "+o.getItems());
-            view.txv_quantity.setText("Quantity :"+o.getQuantity()+"m2");
+            view.txv_items.setText("Items: "+o.getItems() + "-" + o.getColor());
+            view.txv_quantity.setText("Quantity: "+o.getQuantity());
 
             view.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -96,6 +96,7 @@ public class AdapterMyRequest extends RecyclerView.Adapter<RecyclerView.ViewHold
                     in.putExtra("requestStatus",o.getRequestStatus());
                     in.putExtra("requestDate",o.getRequestDate());
                     in.putExtra("quantity",o.getQuantity());
+                    in.putExtra("color",o.getColor());
                     ctx.startActivity(in);
 
                 }

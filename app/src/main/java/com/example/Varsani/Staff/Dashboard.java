@@ -332,9 +332,9 @@ public class Dashboard extends AppCompatActivity {
             else if (user.getUser_type().equals("Service manager")) {
                 //navigationView.getMenu().findItem(R.id.nav_quot_requests).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_pending_allocation).setVisible(true);
-                navigationView.getMenu().findItem(R.id.nav_completed_design).setVisible(true);
+                //navigationView.getMenu().findItem(R.id.nav_completed_design).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_completed_services).setVisible(true);
-                navigationView.getMenu().findItem(R.id.nav_confirm_completion).setVisible(true);
+                //navigationView.getMenu().findItem(R.id.nav_confirm_completion).setVisible(true);
 
 
             } else if (user.getUser_type().equals("Technician")) {

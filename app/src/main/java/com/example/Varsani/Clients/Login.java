@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
 
     private Button btn_login;
     private EditText edt_username,edt_password;
-    TextView signuptext,gotostaff,gotoforgot;
+    TextView signuptext,gotostaff,gotoforgot,gotosupplier;
     private ProgressBar progressBar;
     private SessionHandler session;
     private UserModel user;
@@ -55,6 +55,7 @@ public class Login extends AppCompatActivity {
         progressBar=findViewById(R.id.progressBar);
         gotostaff = findViewById(R.id.gotostaff);
         gotoforgot=findViewById(R.id.gotoforgot);
+        gotosupplier=findViewById(R.id.gotosupplier);
 
 
         session=new SessionHandler(getApplicationContext());
@@ -80,6 +81,13 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(getApplicationContext(),SelectLogin.class);
+                startActivity(in);
+            }
+        });
+        gotosupplier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(getApplicationContext(),SupplierLogin.class);
                 startActivity(in);
             }
         });

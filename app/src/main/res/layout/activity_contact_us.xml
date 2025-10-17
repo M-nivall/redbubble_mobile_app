@@ -94,7 +94,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="contact@signsevolution.com"
+                android:text="contact@redbubble.com"
                 android:paddingStart="8dp"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -112,7 +112,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="info@signsevolution.com"
+                android:text="info@redbubble.com"
                 android:paddingStart="8dp"
                 android:textSize="16sp" />
         </LinearLayout>

@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Signs Evolution Ltd Login"
+                android:text="Redbubble Login"
                 android:id="@+id/txv_stafflogin"
                 android:textSize="25sp"
                 android:textAlignment="center"
@@ -113,6 +113,17 @@
         android:textSize="14sp"
         android:textAlignment="center"
         android:id="@+id/gotostaff"
+        android:textColor="@color/colorBlack"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Supplier Login"
+        android:textSize="14sp"
+        android:textAlignment="center"
+        android:id="@+id/gotosupplier"
         android:textColor="@color/colorBlack"
         android:layout_marginBottom="20dp"/>
 

@@ -99,8 +99,9 @@ public class MyRequests extends AppCompatActivity {
                                     String requestDate=jsn.getString("requestDate");
                                     String requestStatus=jsn.getString("requestStatus");
                                     String quantity=jsn.getString("quantity");
+                                    String color=jsn.getString("color");
 
-                                    MyRequetsModel rq=new MyRequetsModel(requestID, items,  requestDate,  requestStatus, quantity);
+                                    MyRequetsModel rq=new MyRequetsModel(requestID, items,  requestDate,  requestStatus, quantity, color);
                                     list.add(rq);
                                 }
                                 adapter=new AdapterMyRequest(getApplicationContext(),list);

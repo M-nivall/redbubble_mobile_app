@@ -43,7 +43,7 @@ public class Accept extends AppCompatActivity {
 
     private Button btn_submit;
     private ProgressBar progressBar;
-    private String requestID, amount,product;
+    private String requestID, amount,product, color;
     private TextView edt_amount;
     private int unitprice, quantity,totalcharge;
     private ImageView btn_printfile;
@@ -77,9 +77,10 @@ public class Accept extends AppCompatActivity {
 
         Intent in=getIntent();
         requestID=in.getStringExtra("requestID");
+        color=in.getStringExtra("color");
         quantity = Integer.valueOf(in.getStringExtra("quantity"));
-        txv_requestID.setText("requestID: "+in.getStringExtra("requestID"));
-        txv_items.setText("Item/s: "+in.getStringExtra("item"));
+        txv_requestID.setText("RequestID: "+in.getStringExtra("requestID"));
+        txv_items.setText("Items: "+in.getStringExtra("item") + "-" + color);
         txv_requestDate.setText("Date: "+in.getStringExtra("requestDate"));
         txv_requestStatus.setText("Status: "+in.getStringExtra("requestStatus"));
 
@@ -96,26 +97,26 @@ public class Accept extends AppCompatActivity {
 
 
         product = in.getStringExtra("item");
-        if (product.equals("Scaffolding")){
-            unitprice =1500;
-            txt_unitprice.setText("Price: Kes "+unitprice+"/unit");
+        if (product.equals("T-shirts")){
+            unitprice =500;
+            txt_unitprice.setText("Price: Ksh "+unitprice);
             totalcharge = unitprice*quantity;
-            edt_amount.setText("Total Amount: Kes "+totalcharge);
-            txt_quantity.setText("Quantity:"+quantity+"units");
+            edt_amount.setText("Total Amount: Ksh "+totalcharge);
+            txt_quantity.setText("Quantity: "+quantity);
         }
-        if (product.equals("Power Drill")){
-            unitprice = 5000;
-            txt_unitprice.setText("Price: Kes "+unitprice+"/unit");
+        if (product.equals("Hoodies")){
+            unitprice = 800;
+            txt_unitprice.setText("Price: Ksh "+unitprice);
             totalcharge = unitprice*quantity;
-            edt_amount.setText("Total Amount: Kes "+totalcharge);
-            txt_quantity.setText("Quantity:"+quantity+"units");
+            edt_amount.setText("Total Amount: Ksh "+totalcharge);
+            txt_quantity.setText("Quantity: "+quantity);
         }
-        if (product.equals("Angle Grinder")){
-            unitprice =3500;
-            txt_unitprice.setText("Price: Kes "+unitprice+"/unit");
+        if (product.equals("Caps")){
+            unitprice =200;
+            txt_unitprice.setText("Price: Ksh "+unitprice);
             totalcharge = unitprice*quantity;
-            edt_amount.setText("Total Amount: Kes "+totalcharge);
-            txt_quantity.setText("Quantity:"+quantity+"units");
+            edt_amount.setText("Total Amount: Ksh "+totalcharge);
+            txt_quantity.setText("Quantity: "+quantity);
         }
         if (product.equals("Silicon")){
             unitprice = 1200;

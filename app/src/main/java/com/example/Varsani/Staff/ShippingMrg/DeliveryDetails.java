@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -65,6 +66,7 @@ public class DeliveryDetails extends AppCompatActivity {
     private TextView tvClientName,tvClientNo,tvEmail,
             tvCounty,tvTown,tvLocation,
             tvAmount,tvStatus;
+    private CardView cardDesigner;
     private EditText edt_driver;
     private Button btn_assign;
     private String orderId,clientName,phoneNo,email,paymentID;
@@ -97,6 +99,7 @@ public class DeliveryDetails extends AppCompatActivity {
         tvClientNo=findViewById(R.id.tvClientNo);
         edt_driver = findViewById(R.id.edt_driver);
         btn_assign = findViewById(R.id.btn_assign);
+        cardDesigner = findViewById(R.id.cardDesigner);
 
         txv_cart_subtotal = findViewById(R.id.txv_cart_subtotal);
 
@@ -142,6 +145,10 @@ public class DeliveryDetails extends AppCompatActivity {
         //tvBookingDate.setText("Booking Date: " + paymentDate );
         tvClientNo.setText("Phone No: " + phoneNo );
         //tvBookingID.setText("Booking ID: " + orderID );
+
+        if (paymentStatus.equalsIgnoreCase("In Shipment")) {
+            cardDesigner.setVisibility(View.GONE);
+        }
 
         edt_driver.setOnClickListener(new View.OnClickListener() {
             @Override

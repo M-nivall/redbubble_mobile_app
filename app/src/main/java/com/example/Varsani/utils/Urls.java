@@ -3,8 +3,8 @@ package com.example.Varsani.utils;
 public class Urls {
 
 
-   public static String ipAddress = "https://faa559c192b4.ngrok-free.app/redbubble/";
-    //public static String ipAddress = "http://192.168.0.110/signsevolution/";
+   public static String ipAddress = "https://32f9ae6e1012.ngrok-free.app/redbubble/";
+    //public static String ipAddress = "http://192.168.198.133/redbubble/";
 
     private static final String ROOT_URL =ipAddress+ "android_files/";
     public static final String ROOT_URL_IMAGES =ipAddress+"upload_products/" ;

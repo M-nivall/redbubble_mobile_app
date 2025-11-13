@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -67,10 +68,14 @@ public class CheckOut2 extends AppCompatActivity {
     private TextView txvName, txvEmail, txvPhone;
     private TextView txvProdName, txvUnitPrice, txvQty, txvTotal;
 
-    private Spinner spPrintArea, spColor, spSize;
+    private Spinner spPrintArea, spColor;
     private Button btnLogo;
     private TextView txvLogoName;
     private EditText edtNotes;
+
+    private CheckBox cbSmall, cbMedium, cbLarge;
+    private EditText etSmallQty, etMediumQty, etLargeQty;
+
 
     private Button btnAddToCart;
 
@@ -105,11 +110,25 @@ public class CheckOut2 extends AppCompatActivity {
 
         spPrintArea  = findViewById(R.id.sp_print_area);
         spColor      = findViewById(R.id.sp_color);
-        spSize       = findViewById(R.id.sp_size);
 
         btnLogo      = findViewById(R.id.btn_logo);
         txvLogoName  = findViewById(R.id.txv_logo_name);
         edtNotes     = findViewById(R.id.edt_notes);
+
+        // Size checkboxes & quantities
+        cbSmall = findViewById(R.id.cb_small);
+        cbMedium = findViewById(R.id.cb_medium);
+        cbLarge = findViewById(R.id.cb_large);
+
+        etSmallQty = findViewById(R.id.et_small_qty);
+        etMediumQty = findViewById(R.id.et_medium_qty);
+        etLargeQty = findViewById(R.id.et_large_qty);
+
+       // Enable quantity fields only when checkbox is checked
+        cbSmall.setOnCheckedChangeListener((buttonView, isChecked) -> etSmallQty.setEnabled(isChecked));
+        cbMedium.setOnCheckedChangeListener((buttonView, isChecked) -> etMediumQty.setEnabled(isChecked));
+        cbLarge.setOnCheckedChangeListener((buttonView, isChecked) -> etLargeQty.setEnabled(isChecked));
+
 
         btnAddToCart = findViewById(R.id.btn_add_to_cart);
         progressBar.setVisibility(View.GONE);
@@ -141,10 +160,6 @@ public class CheckOut2 extends AppCompatActivity {
                 this, android.R.layout.simple_spinner_dropdown_item,
                 new String[]{"Black", "White", "Red", "Blue", "Green", "Maroon"}));
 
-        spSize.setAdapter(new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_dropdown_item,
-                new String[]{"Small", "Medium", "Large"}));
-
         edtNotes.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -166,6 +181,48 @@ public class CheckOut2 extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         btnAddToCart.setVisibility(View.GONE);
 
+        // Get maximum allowed quantity from EXTRA_QTY
+        int maxQty = qty; // EXTRA_QTY passed in intent
+
+        int totalSelectedQty = 0;
+        StringBuilder sizeBuilder = new StringBuilder();
+
+        try {
+            if (cbSmall.isChecked()) {
+                int smallQty = Integer.parseInt(defaultIfEmpty(etSmallQty.getText().toString().trim(), "0"));
+                totalSelectedQty += smallQty;
+                sizeBuilder.append("small-").append(smallQty);
+            }
+            if (cbMedium.isChecked()) {
+                int mediumQty = Integer.parseInt(defaultIfEmpty(etMediumQty.getText().toString().trim(), "0"));
+                totalSelectedQty += mediumQty;
+                if (sizeBuilder.length() > 0) sizeBuilder.append(",");
+                sizeBuilder.append("medium-").append(mediumQty);
+            }
+            if (cbLarge.isChecked()) {
+                int largeQty = Integer.parseInt(defaultIfEmpty(etLargeQty.getText().toString().trim(), "0"));
+                totalSelectedQty += largeQty;
+                if (sizeBuilder.length() > 0) sizeBuilder.append(",");
+                sizeBuilder.append("large-").append(largeQty);
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Enter valid quantity for selected sizes", Toast.LENGTH_SHORT).show();
+            btnAddToCart.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
+
+        // Validate total selected quantity does not exceed maxQty
+        if (totalSelectedQty > maxQty) {
+            Toast.makeText(this, "Total quantity for all sizes cannot exceed " + maxQty, Toast.LENGTH_SHORT).show();
+            btnAddToCart.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
+
+        // Store final size string
+        String size_dimension = sizeBuilder.toString();
+
         final String clientID    = user.getClientID();
         final String clientName  = txvName.getText().toString().trim();
         final String clientEmail = txvEmail.getText().toString().trim();
@@ -180,7 +237,6 @@ public class CheckOut2 extends AppCompatActivity {
 
         final String _printArea = spPrintArea.getSelectedItem() != null ? spPrintArea.getSelectedItem().toString() : "";
         final String _color     = spColor.getSelectedItem() != null ? spColor.getSelectedItem().toString() : "";
-        final String _size      = spSize.getSelectedItem() != null ? spSize.getSelectedItem().toString() : "";
         final String _notes     = defaultIfEmpty(edtNotes.getText().toString().trim(), "");
 
         // ===== REQUIRED ONLY: design (image) and notes =====
@@ -257,7 +313,7 @@ public class CheckOut2 extends AppCompatActivity {
                 // Branding
                 params.put("printArea",   _printArea);
                 params.put("color",       _color);
-                params.put("size",        _size);
+                params.put("size",        size_dimension);
                 params.put("notes",       _notes);
                 return params;
             }

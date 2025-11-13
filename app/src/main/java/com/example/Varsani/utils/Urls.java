@@ -3,11 +3,11 @@ package com.example.Varsani.utils;
 public class Urls {
 
 
-   public static String ipAddress = "https://880c3bea183e.ngrok-free.app/redbubble/";
-    //public static String ipAddress = "http://192.168.198.133/redbubble/";
+   //public static String ipAddress = "https://1b557a947286.ngrok-free.app/redbubble/";
+    public static String ipAddress = "http://192.168.100.215/redbubble/";
 
     private static final String ROOT_URL =ipAddress+ "android_files/";
-    public static final String ROOT_URL_IMAGES =ipAddress+"upload_products/" ;
+    public static final String ROOT_URL_IMAGES =ipAddress+"upload_products/";
 
     public static  final String URL_PRINT=ipAddress+"print_pdf.php";
     public static  final String UEL_FEEDBACK=ROOT_URL+"client/get_feedback.php";

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.Varsani"
-    tools:ignore="SelectedPhotoAccess">
+    tools:ignore="SelectedPhotoAccess" >
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Pre-Android 13 -->
     <uses-permission
@@ -17,7 +17,10 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
+        <activity
+            android:name=".Staff.Finance.NewBookingPayments"
+            android:exported="false" />
         <activity
             android:name=".Staff.ShippingMrg.DeliveryDetails"
             android:exported="false" />
@@ -220,7 +223,7 @@
             android:name=".Clients.Login"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

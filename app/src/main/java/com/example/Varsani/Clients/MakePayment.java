@@ -49,7 +49,7 @@ public class MakePayment extends AppCompatActivity {
     public static final String EXTRA_TOTAL = "EXTRA_TOTAL"; // ensure ServiceItems uses this key
 
     private static final String TAG = "MakePayment";
-    private static final int DEFAULT_SHIPPING_FEE = 300;
+    private static final int DEFAULT_SHIPPING_FEE = 400;
 
     private SessionHandler session;
     private UserModel user;
@@ -61,6 +61,9 @@ public class MakePayment extends AppCompatActivity {
     private Button btn_order;
     private RadioGroup pay_group;
     private RadioButton rb_mpesa, rb_bank;
+
+    private RadioGroup rg_shipping;
+    private RadioButton rb_shipping_yes, rb_shipping_no;
 
     private final ArrayList<String> arrayCounties = new ArrayList<>();
     private final ArrayList<String> arrayTowns = new ArrayList<>();
@@ -114,6 +117,10 @@ public class MakePayment extends AppCompatActivity {
         rb_mpesa          = findViewById(R.id.rb_mpesa);
         rb_bank           = findViewById(R.id.rb_bank);
 
+        rg_shipping       = findViewById(R.id.rg_shipping);
+        rb_shipping_yes   = findViewById(R.id.rb_shipping_yes);
+        rb_shipping_no    = findViewById(R.id.rb_shipping_no);
+
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         date = dateFormat.format(calendar.getTime());
@@ -129,15 +136,28 @@ public class MakePayment extends AppCompatActivity {
         session = new SessionHandler(getApplicationContext());
         user    = session.getUserDetails();
 
-        // ----- show totals -----
         long itemsTotal = parseLongSafe(totalAmount);
-        long shipping   = DEFAULT_SHIPPING_FEE;
-        long finalTotal = itemsTotal + shipping;
-        grandTotal = String.valueOf(finalTotal);
+        long shippingFee = DEFAULT_SHIPPING_FEE;
 
+        // Initially include shipping
+        long currentTotal = itemsTotal + shippingFee;
         txv_items_total.setText("Items Total: KES " + itemsTotal);
-        txv_shipping_fee.setText("Shipping: KES " + shipping);
-        txv_amount_to_pay.setText("Amount to Pay: KES " + finalTotal);
+        txv_shipping_fee.setText("Shipping: KES " + shippingFee);
+        txv_amount_to_pay.setText("Amount to Pay: KES " + currentTotal);
+
+        // RadioGroup listener
+        rg_shipping.setOnCheckedChangeListener((group, checkedId) -> {
+            long total = itemsTotal;
+            if (checkedId == R.id.rb_shipping_yes) {
+                total += shippingFee;
+                txv_shipping_fee.setText("Shipping: KES " + shippingFee);
+            } else if (checkedId == R.id.rb_shipping_no) {
+                txv_shipping_fee.setText("Shipping: KES 0");
+            }
+            txv_amount_to_pay.setText("Amount to Pay: KES " + total);
+            grandTotal = String.valueOf(total); // Update grandTotal to send to backend
+        });
+
 
         // ----- static UI state -----
         layout_bottom.setVisibility(View.VISIBLE);

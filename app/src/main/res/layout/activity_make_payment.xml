@@ -109,6 +109,71 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+                <!-- CARD: Shipping Option -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardElevation="6dp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Shipping"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorBlack"
+                            android:paddingBottom="8dp" />
+
+                        <RadioGroup
+                            android:id="@+id/rg_shipping"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp">
+
+                            <RadioButton
+                                android:id="@+id/rb_shipping_yes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Include Shipping"
+                                android:textColor="@color/colorBlack"
+                                android:buttonTint="@color/purple" />
+
+                            <RadioButton
+                                android:id="@+id/rb_shipping_no"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="No Shipping"
+                                android:layout_marginStart="24dp"
+                                android:textColor="@color/colorBlack"
+                                android:buttonTint="@color/purple" />
+                        </RadioGroup>
+
+                        <!-- Optional: Display shipping fee dynamically -->
+                        <TextView
+                            android:id="@+id/txv_shipping_option_fee"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Shipping Fee: KES 300"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorBlack"
+                            android:paddingTop="4dp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
                 <!-- CARD 2: PAYMENT -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"

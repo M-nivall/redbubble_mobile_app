@@ -10,11 +10,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
-import android.widget.Spinner;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,10 +27,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.Varsani.Clients.Models.UserModel;
 import com.example.Varsani.R;
 import com.example.Varsani.Staff.Store_mrg.Model.GetToolModel;
-import com.example.Varsani.utils.SessionHandler;
 
 import org.json.JSONObject;
 
@@ -40,25 +37,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AdapterGetTools extends RecyclerView.Adapter<AdapterGetTools.OriginalViewHolder> {
+public class AdapterGetTools extends RecyclerView.Adapter<AdapterGetTools.OriginalViewHolder> implements Filterable {
 
     private List<GetToolModel> items;
     private final List<GetToolModel> searchList;
     private final Context ctx;
-    private final List<String> supplierList;
-
-    private SessionHandler session;
-    private UserModel user;
-    private String clientId = "";
-    private String orderID = "";
 
     public static final String TAG = "AdapterGetTools";
 
-    public AdapterGetTools(Context context, List<GetToolModel> items, List<String> supplierList) {
+    public AdapterGetTools(Context context, List<GetToolModel> items) {
         this.items = items;
         this.searchList = new ArrayList<>(items);
         this.ctx = context;
-        this.supplierList = supplierList;
     }
 
     public static class OriginalViewHolder extends RecyclerView.ViewHolder {
@@ -90,7 +80,6 @@ public class AdapterGetTools extends RecyclerView.Adapter<AdapterGetTools.Origin
         holder.txv_quantity.setText("Qty: " + tool.getQuantity());
         holder.txv_toolID.setText("#ID: " + tool.getStockID());
 
-        // Change card color based on category
         String category = tool.getCategory().toLowerCase();
         int colorResId;
 
@@ -106,7 +95,8 @@ public class AdapterGetTools extends RecyclerView.Adapter<AdapterGetTools.Origin
 
         holder.cardContainer.setCardBackgroundColor(ContextCompat.getColor(ctx, colorResId));
 
-        holder.cardContainer.setOnClickListener(v -> showRequestStockDialog(tool.getCategory(),tool.getColor()));
+        holder.cardContainer.setOnClickListener(v ->
+                showRequestStockDialog(tool.getCategory(), tool.getColor()));
     }
 
     @Override
@@ -115,7 +105,6 @@ public class AdapterGetTools extends RecyclerView.Adapter<AdapterGetTools.Origin
     }
 
     private void showRequestStockDialog(String productName, String productColor) {
-        // ✅ Ensure context is valid (prevents crash)
         if (!(ctx instanceof Activity) || ((Activity) ctx).isFinishing()) {
             Log.e(TAG, "Context is not valid for showing dialog");
             return;
@@ -126,45 +115,33 @@ public class AdapterGetTools extends RecyclerView.Adapter<AdapterGetTools.Origin
         builder.setView(dialogView);
 
         TextView txtMaterial = dialogView.findViewById(R.id.txt_material_name);
-        Spinner spnSupplier = dialogView.findViewById(R.id.spn_supplier);
         EditText edtQuantity = dialogView.findViewById(R.id.edt_quantity);
         Button btnSubmit = dialogView.findViewById(R.id.btn_submit_request);
 
         txtMaterial.setText("Requesting: " + productName + " - " + productColor);
 
-        if (supplierList == null || supplierList.isEmpty()) {
-            Toast.makeText(ctx, "No suppliers available. Try again later.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(ctx, android.R.layout.simple_spinner_dropdown_item, supplierList);
-        spnSupplier.setAdapter(adapter);
-
         AlertDialog dialog = builder.create();
         dialog.show();
 
         btnSubmit.setOnClickListener(v -> {
-            String selectedSupplier = spnSupplier.getSelectedItem().toString();
             String quantity = edtQuantity.getText().toString().trim();
-
             if (quantity.isEmpty()) {
                 edtQuantity.setError("Enter quantity");
                 return;
             }
 
-            sendRequest(selectedSupplier, productName, productColor, quantity);
+            // Supplier removed, passing "any" as default
+            sendRequest("any", productName, productColor, quantity);
             dialog.dismiss();
         });
     }
 
-    private void sendRequest(String selectedSupplier, String productName, String productColor, String quantity) {
+    private void sendRequest(String supplier, String productName, String productColor, String quantity) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REQUEST_STOCK,
                 response -> {
                     try {
-                        Log.e("RESPONSE", response);
                         JSONObject jsonObject = new JSONObject(response);
                         String msg = jsonObject.getString("message");
-
                         showToast(msg);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -178,7 +155,7 @@ public class AdapterGetTools extends RecyclerView.Adapter<AdapterGetTools.Origin
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("supplier", selectedSupplier);
+                //params.put("supplier", supplier); // always "any"
                 params.put("productName", productName);
                 params.put("productColor", productColor);
                 params.put("quantity", quantity);
@@ -197,12 +174,13 @@ public class AdapterGetTools extends RecyclerView.Adapter<AdapterGetTools.Origin
         toast.show();
     }
 
-    // 🔍 Optional search filter
+    // Implement search/filter functionality
+    @Override
     public Filter getFilter() {
         return new Filter() {
             @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                String query = charSequence.toString().toLowerCase();
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String query = constraint.toString().toLowerCase();
                 List<GetToolModel> filtered = new ArrayList<>();
 
                 if (query.isEmpty()) {

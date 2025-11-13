@@ -1,13 +1,10 @@
 package com.example.Varsani.Staff.Store_mrg;
 
-import static com.example.Varsani.utils.Urls.URL_SUPPLIER;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -37,7 +34,6 @@ public class ViewTools extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private List<GetToolModel> list;
-    private List<String> supplierList;
     private AdapterGetTools adapterGetTools;
 
     @Override
@@ -53,16 +49,13 @@ public class ViewTools extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         recyclerView = findViewById(R.id.recyclerView);
 
-        supplierList = new ArrayList<>();
         list = new ArrayList<>();
-
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        adapterGetTools = new AdapterGetTools(ViewTools.this, list, supplierList);
+        adapterGetTools = new AdapterGetTools(ViewTools.this, list); // updated constructor
         recyclerView.setAdapter(adapterGetTools);
 
-        getStock();
-        fetchSupplierList();
+        getStock(); // fetch stock only
     }
 
     @Override
@@ -95,8 +88,8 @@ public class ViewTools extends AppCompatActivity {
         });
     }
 
-    public void getStock() {
-        progressBar.setVisibility(View.VISIBLE);
+    private void getStock() {
+        progressBar.setVisibility(android.view.View.VISIBLE);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.URL_GET_TOOLS,
                 response -> {
@@ -127,39 +120,12 @@ public class ViewTools extends AppCompatActivity {
                         e.printStackTrace();
                         showToast(e.toString());
                     } finally {
-                        progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(android.view.View.GONE);
                     }
                 },
                 error -> {
                     error.printStackTrace();
-                    progressBar.setVisibility(View.GONE);
-                    showToast(error.toString());
-                });
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
-
-    public void fetchSupplierList() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_SUPPLIER,
-                response -> {
-                    try {
-                        Log.e("RESPONSE", response);
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.getString("status").equals("1")) {
-                            JSONArray jsonArray = jsonObject.getJSONArray("details");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsn = jsonArray.getJSONObject(i);
-                                supplierList.add(jsn.getString("username"));
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        showToast(e.toString());
-                    }
-                },
-                error -> {
-                    error.printStackTrace();
+                    progressBar.setVisibility(android.view.View.GONE);
                     showToast(error.toString());
                 });
 

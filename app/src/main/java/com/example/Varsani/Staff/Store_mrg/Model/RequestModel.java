@@ -11,8 +11,13 @@ public class RequestModel {
     private String amount;
     private String color;
 
+    private String bidID;
+    private String quantity;
+    private String unitPrice;
+
     public RequestModel(String requestID, String name, String phoneNo,
-                        String items, String requestDate, String requestStatus, String amount, String color) {
+                        String items, String requestDate, String requestStatus, String amount, String color,
+                        String bidID, String quantity, String unitPrice) {
         this.requestID = requestID;
         this.name = name;
         this.phoneNo = phoneNo;
@@ -21,6 +26,9 @@ public class RequestModel {
         this.requestDate = requestDate;
         this.requestStatus = requestStatus;
         this.color = color;
+        this.bidID = bidID;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
     }
 
     public String getRequestID() {
@@ -50,4 +58,8 @@ public class RequestModel {
         return requestStatus;
     }
     public String getColor() {return color; }
+
+    public String getBidID() {return bidID; }
+    public String getQuantity() {return quantity; }
+    public String getUnitPrice() {return unitPrice; }
 }

@@ -94,7 +94,7 @@ public class AdapterRequest extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 @Override
                 public void onClick(View view) {
                     // Check if the request status is "Invoice sent"
-                    if (o.getRequestStatus().equalsIgnoreCase("Invoice sent")) {
+                    if (o.getRequestStatus().equalsIgnoreCase("Pending approval")) {
                         // Navigate to ApproveSupply activity
                         Intent in = new Intent(ctx, ApproveSupply.class);
                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -105,6 +105,10 @@ public class AdapterRequest extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         in.putExtra("requestStatus", o.getRequestStatus());
                         in.putExtra("requestDate", o.getRequestDate());
                         in.putExtra("color", o.getColor());
+
+                        in.putExtra("bidID", o.getBidID());
+                        in.putExtra("quantity", o.getQuantity());
+                        in.putExtra("unitPrice", o.getUnitPrice());
                         ctx.startActivity(in);
                     } else {
                         // Optionally, show a message to the user indicating that action is not allowed

@@ -73,11 +73,31 @@
                         android:paddingBottom="4dp"/>
 
                     <TextView
+                        android:id="@+id/txv_quantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Quantity: 50"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorBlack"
+                        android:paddingBottom="4dp"/>
+
+                    <TextView
+                        android:id="@+id/txv_requestedPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Unit: 500"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorBlack"
+                        android:paddingBottom="4dp"/>
+
+                    <TextView
                         android:id="@+id/txv_quotation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Quotation: Ksh 50,000"
                         android:textSize="16sp"
+                        android:textStyle="bold"
                         android:textColor="@color/colorBlack"
                         android:paddingBottom="4dp"/>
 
@@ -113,7 +133,7 @@
                     android:id="@+id/btn_submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Confirm Supply"
+                    android:text="Aprove Supply Request"
                     android:textSize="18sp"
                     android:textColor="@android:color/white"
                     android:backgroundTint="@color/btn_color"

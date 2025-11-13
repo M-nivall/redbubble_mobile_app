@@ -51,7 +51,7 @@ public class RequestItems extends AppCompatActivity {
         setContentView(R.layout.activity_request_items);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Requested Stock");
+        getSupportActionBar().setTitle("Supplier Bids");
         progressBar = findViewById(R.id.progressBar);
         recyclerView = findViewById(R.id.recyclerView);
         btn_next = findViewById(R.id.btn_next);
@@ -103,8 +103,14 @@ public class RequestItems extends AppCompatActivity {
                                     String requestStatus=jsn.getString("requestStatus");
                                     String amount=jsn.getString("amount");
                                     String color=jsn.getString("color");
+
+                                    String bidID=jsn.getString("bidID");
+                                    String quantity=jsn.getString("quantity");
+                                    String unitPrice=jsn.getString("unitPrice");
+
                                     RequestModel rq=new RequestModel(requestID,  name,  phoneNo,
-                                             items,  requestDate,  requestStatus, amount, color);
+                                             items,  requestDate,  requestStatus, amount, color,
+                                            bidID, quantity, unitPrice);
                                     list.add(rq);
                                 }
                                 adapter=new AdapterRequest(getApplicationContext(),list);

@@ -39,12 +39,12 @@ import java.util.Map;
 
 public class ApproveSupply extends AppCompatActivity {
 
-    private TextView txv_requestID,txv_name,txv_items,
-            txv_requestDate, txv_requestStatus,edt_quotation ,txv_amount;
+    private TextView txv_requestID,txv_quantity,txv_items,
+            txv_requestDate, txv_requestStatus ,txv_amount, txv_requestedPrice;
 
     private Button btn_submit;
     private ProgressBar progressBar;
-    private String requestID, color, supplierID;
+    private String requestID, color,bidID, supplierID;
 
     private SessionHandler session;
     private UserModel user;
@@ -56,10 +56,11 @@ public class ApproveSupply extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        txv_items =findViewById(R.id.txv_tenderdesc);
+        txv_items = findViewById(R.id.txv_tenderdesc);
+        txv_quantity = findViewById(R.id.txv_quantity);
+        txv_requestedPrice = findViewById(R.id.txv_requestedPrice);
         txv_requestID = findViewById(R.id.txv_tenderID);
         txv_requestStatus = findViewById(R.id.txv_tenderstatus);
-        edt_quotation = findViewById(R.id.txv_quotation);
         txv_requestDate = findViewById(R.id.txv_requestDate);
         progressBar=findViewById(R.id.progressBar);
         btn_submit=findViewById(R.id.btn_submit);
@@ -72,15 +73,17 @@ public class ApproveSupply extends AppCompatActivity {
 
         Intent in=getIntent();
         requestID=in.getStringExtra("requestID");
+        bidID=in.getStringExtra("bidID");
         color=in.getStringExtra("color");
 
 
         txv_requestID.setText("Tender ID: "+in.getStringExtra("requestID"));
-        edt_quotation.setText("Supplier Name: "+in.getStringExtra("supplier"));
         txv_items.setText("Tender: "+in.getStringExtra("item") + "-" + color);
+        txv_quantity.setText("Quantity: "+in.getStringExtra("quantity"));
+        txv_requestedPrice.setText("Unit Price: "+in.getStringExtra("unitPrice"));
         txv_requestDate.setText("Date: "+in.getStringExtra("requestDate"));
         txv_requestStatus.setText("Status: "+in.getStringExtra("requestStatus"));
-        txv_amount.setText("Invoiced Amount: "+in.getStringExtra("amount"));
+        txv_amount.setText("Total Amount: "+in.getStringExtra("amount"));
 
         btn_submit.setOnClickListener(v-> approve());
     }
@@ -139,6 +142,7 @@ public class ApproveSupply extends AppCompatActivity {
                 Map<String,String> params=new HashMap<>();
 
                 params.put("requestID",requestID);
+                params.put("bidID",bidID);
                 params.put("color",color);
                 Log.e("PARAMS",""+params);
                 return params;

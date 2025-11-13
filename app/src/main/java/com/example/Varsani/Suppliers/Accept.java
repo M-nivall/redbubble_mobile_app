@@ -1,7 +1,6 @@
 package com.example.Varsani.Suppliers;
 
 import static com.example.Varsani.utils.Urls.URL_ACCEPT;
-import static com.example.Varsani.utils.Urls.URL_GET_APPROVE_ORDERS;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.print.PrintHelper;
@@ -25,12 +24,11 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.Varsani.Clients.Models.UserModel;
 import com.example.Varsani.R;
-import com.example.Varsani.Staff.Finance.OrderDetails;
+import com.example.Varsani.utils.SessionHandler;
 
 import org.json.JSONObject;
 
@@ -38,210 +36,167 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Accept extends AppCompatActivity {
-    private TextView txv_requestID,txv_name,txv_items,
-            txv_requestDate, txv_requestStatus, txt_unitprice,txt_quantity;
 
+    private TextView txv_requestID, txv_items, txt_qty, txv_requestDate, txv_requestStatus;
     private Button btn_submit;
     private ProgressBar progressBar;
-    private String requestID, amount,product, color;
-    private TextView edt_amount;
-    private int unitprice, quantity,totalcharge;
     private ImageView btn_printfile;
+    private EditText edt_price;
+    private SessionHandler session;
+    private UserModel user;
+
+    private String requestID, color, product, totalAmount;
+    private int unitprice, quantity, enteredPrice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accept);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        txv_items =findViewById(R.id.txv_items);
-        txv_name =findViewById(R.id.txv_name);
         txv_requestID = findViewById(R.id.txv_requestID);
-        txv_requestStatus = findViewById(R.id.txv_requestStatus);
+        txv_items = findViewById(R.id.txv_items);
+        txt_qty = findViewById(R.id.request_qty);
         txv_requestDate = findViewById(R.id.txv_requestDate);
-        progressBar=findViewById(R.id.progressBar);
-        btn_submit=findViewById(R.id.btn_submit);
-        edt_amount = findViewById(R.id.edt_amount);
-        progressBar.setVisibility(View.GONE);
-        txt_unitprice= findViewById(R.id.unitprice);
-        txt_quantity = findViewById(R.id.request_quantity);
+        txv_requestStatus = findViewById(R.id.txv_requestStatus);
+        btn_submit = findViewById(R.id.btn_submit);
+        progressBar = findViewById(R.id.progressBar);
         btn_printfile = findViewById(R.id.btn_printfile);
+        edt_price = findViewById(R.id.edt_item_price);
 
-        btn_printfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                print();
-            }
-        });
+        progressBar.setVisibility(View.GONE);
 
-        Intent in=getIntent();
-        requestID=in.getStringExtra("requestID");
-        color=in.getStringExtra("color");
-        quantity = Integer.valueOf(in.getStringExtra("quantity"));
-        txv_requestID.setText("RequestID: "+in.getStringExtra("requestID"));
-        txv_items.setText("Items: "+in.getStringExtra("item") + "-" + color);
-        txv_requestDate.setText("Date: "+in.getStringExtra("requestDate"));
-        txv_requestStatus.setText("Status: "+in.getStringExtra("requestStatus"));
+        session=new SessionHandler(getApplicationContext());
+        user=session.getUserDetails();
 
-
-        if (in.getStringExtra("requestStatus").equals("Invoice Sent")){
-            btn_submit.setVisibility(View.GONE);
-        }
-        if (in.getStringExtra("requestStatus").equals("Paid")){
-            btn_submit.setVisibility(View.GONE);
-        }
-        if (in.getStringExtra("requestStatus").equals("Supply Confirmed")){
-            btn_submit.setVisibility(View.GONE);
-        }
-
-
+        Intent in = getIntent();
+        requestID = in.getStringExtra("requestID");
+        color = in.getStringExtra("color");
+        quantity = Integer.parseInt(in.getStringExtra("quantity"));
         product = in.getStringExtra("item");
-        if (product.equals("T-shirts")){
-            unitprice =500;
-            txt_unitprice.setText("Price: Ksh "+unitprice);
-            totalcharge = unitprice*quantity;
-            edt_amount.setText("Total Amount: Ksh "+totalcharge);
-            txt_quantity.setText("Quantity: "+quantity);
-        }
-        if (product.equals("Hoodies")){
-            unitprice = 800;
-            txt_unitprice.setText("Price: Ksh "+unitprice);
-            totalcharge = unitprice*quantity;
-            edt_amount.setText("Total Amount: Ksh "+totalcharge);
-            txt_quantity.setText("Quantity: "+quantity);
-        }
-        if (product.equals("Caps")){
-            unitprice =200;
-            txt_unitprice.setText("Price: Ksh "+unitprice);
-            totalcharge = unitprice*quantity;
-            edt_amount.setText("Total Amount: Ksh "+totalcharge);
-            txt_quantity.setText("Quantity: "+quantity);
-        }
-        if (product.equals("Silicon")){
-            unitprice = 1200;
-            txt_unitprice.setText("Price: Kes "+unitprice+"/unit");
-            totalcharge = unitprice*quantity;
-            edt_amount.setText("Total Amount: Kes "+totalcharge);
-            txt_quantity.setText("Quantity:"+quantity+"unit");
-        }
-        if (product.equals("Measuring Tape")){
-            unitprice = 3000;
-            txt_unitprice.setText("Price: Kes "+unitprice+"/unit");
-            totalcharge = unitprice*quantity;
-            edt_amount.setText("Total Amount: Kes "+totalcharge);
-            txt_quantity.setText("Quantity:"+quantity+"unit");
-        }
-        if (product.equals("Rivet Gun")){
-            unitprice = 5000;
-            txt_unitprice.setText("Price: Kes "+unitprice+"/unit");
-            totalcharge = unitprice*quantity;
-            edt_amount.setText("Total Amount: Kes "+totalcharge);
-            txt_quantity.setText("Quantity:"+quantity+"unit");
+
+        txv_requestID.setText("Request ID: " + requestID);
+        txv_items.setText("Items: " + product + " - " + color);
+        txt_qty.setText("Quantity: " + quantity);
+        txv_requestDate.setText("Date: " + in.getStringExtra("requestDate"));
+        txv_requestStatus.setText("Status: " + in.getStringExtra("requestStatus"));
+
+        String status = in.getStringExtra("requestStatus");
+        if (status.equals("Invoice Sent") || status.equals("Paid") || status.equals("Supply Confirmed")) {
+            btn_submit.setVisibility(View.GONE);
+            edt_price.setVisibility(View.GONE);
         }
 
-        amount = String.valueOf(totalcharge);
+        switch (product) {
+            case "T-shirts": unitprice = 400; break;
+            case "Hoodies": unitprice = 800; break;
+            case "Caps": unitprice = 200; break;
+            default: unitprice = 0; break;
+        }
 
-        btn_submit.setOnClickListener(v-> approve());
+        btn_submit.setOnClickListener(v -> handleSubmit());
+        btn_printfile.setOnClickListener(v -> printInvoice());
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
+        if (item.getItemId() == android.R.id.home) finish();
         return super.onOptionsItemSelected(item);
     }
 
-    public void approve(){
-        String Amount = amount;
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL_ACCEPT,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+    private void handleSubmit() {
+        String enteredPriceStr = edt_price.getText().toString().trim();
 
-                        try {
-                            Log.e("RESPONSE",response);
-                            JSONObject jsonObject=new JSONObject(response);
-                            String status=jsonObject.getString("status");
-                            String msg=jsonObject.getString("message");
-                            if (status.equals("1")){
+        if (enteredPriceStr.isEmpty()) {
+            edt_price.setError("Enter price");
+            return;
+        }
 
-                                Toast toast= Toast.makeText(Accept.this, msg, Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.TOP,0,250);
-                                toast.show();
-                                finish();
-                            }else{
+        try {
+            enteredPrice = Integer.parseInt(enteredPriceStr);
+        } catch (NumberFormatException e) {
+            edt_price.setError("Invalid price");
+            return;
+        }
 
-                                Toast toast= Toast.makeText(Accept.this, msg, Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.TOP,0,250);
-                                toast.show();
-                            }
+        if (enteredPrice > unitprice) {
+            Toast toast = Toast.makeText(this, "Entered price is more than selling price!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP, 0, 250);
+            toast.show();
+            return;
+        }
 
-                        }catch (Exception e){
-                            e.printStackTrace();
-                            Toast toast= Toast.makeText(Accept.this, e.toString(), Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.TOP,0,250);
-                            toast.show();
-                        }
+        // Calculate total
+        totalAmount = String.valueOf(enteredPrice * quantity);
 
+        approve();
+    }
+
+    private void approve() {
+        progressBar.setVisibility(View.VISIBLE);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ACCEPT,
+                response -> {
+                    progressBar.setVisibility(View.GONE);
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String status = jsonObject.getString("status");
+                        String msg = jsonObject.getString("message");
+
+                        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.TOP, 0, 250);
+                        toast.show();
+
+                        if (status.equals("1")) finish();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        showToast(e.toString());
                     }
-                }, new Response.ErrorListener() {
+                },
+                error -> {
+                    progressBar.setVisibility(View.GONE);
+                    error.printStackTrace();
+                    showToast(error.toString());
+                }) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Toast toast= Toast.makeText(Accept.this, error.toString(), Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP,0,250);
-                toast.show();
-            }
-        }){
-            @Override
-            protected Map<String,String> getParams()throws AuthFailureError {
-                Map<String,String> params=new HashMap<>();
-                params.put("requestID",requestID);
-                params.put("amount",Amount);
-                Log.e("PARAMS",""+params);
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("userID",user.getClientID());
+                params.put("requestID", requestID);
+                params.put("unitPrice", String.valueOf(enteredPrice)); // Single item price
+                params.put("totalAmount", totalAmount); // quantity * enteredPrice
+                Log.e("PARAMS", "" + params);
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
-    public void alertApprove(){
-        android.app.AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setMessage("Confirm");
-        alertDialog.setCancelable(false);
-        alertDialog.setButton2("Close", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-
-                return;
-            }
-        });
-        alertDialog.setButton("Approve ", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-                approve();
-                return;
-            }
-        });
-        alertDialog.show();
+    private void showToast(String msg) {
+        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP, 0, 250);
+        toast.show();
     }
 
-    private void print(){
+    private void printInvoice() {
         btn_printfile.setVisibility(View.GONE);
 
         View view = getWindow().getDecorView().findViewById(android.R.id.content);
         view.setDrawingCacheEnabled(true);
-        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),View. MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
         view.buildDrawingCache(true);
         Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
         view.setDrawingCacheEnabled(false);
 
-        PrintHelper photoPrinter = new PrintHelper(this); // Assume that 'this' is your activity
+        PrintHelper photoPrinter = new PrintHelper(this);
         photoPrinter.setScaleMode(PrintHelper.SCALE_MODE_FIT);
-        photoPrinter.printBitmap("print", bitmap);
+        photoPrinter.printBitmap("Invoice_Print", bitmap);
 
         btn_printfile.setVisibility(View.VISIBLE);
     }

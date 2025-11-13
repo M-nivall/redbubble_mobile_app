@@ -38,7 +38,7 @@ import java.util.Map;
 public class Accept extends AppCompatActivity {
 
     private TextView txv_requestID, txv_items, txt_qty, txv_requestDate, txv_requestStatus;
-    private Button btn_submit;
+    private Button btn_submit_price;
     private ProgressBar progressBar;
     private ImageView btn_printfile;
     private EditText edt_price;
@@ -60,7 +60,7 @@ public class Accept extends AppCompatActivity {
         txt_qty = findViewById(R.id.request_qty);
         txv_requestDate = findViewById(R.id.txv_requestDate);
         txv_requestStatus = findViewById(R.id.txv_requestStatus);
-        btn_submit = findViewById(R.id.btn_submit);
+        btn_submit_price = findViewById(R.id.btn_submit_price);
         progressBar = findViewById(R.id.progressBar);
         btn_printfile = findViewById(R.id.btn_printfile);
         edt_price = findViewById(R.id.edt_item_price);
@@ -82,11 +82,6 @@ public class Accept extends AppCompatActivity {
         txv_requestDate.setText("Date: " + in.getStringExtra("requestDate"));
         txv_requestStatus.setText("Status: " + in.getStringExtra("requestStatus"));
 
-        String status = in.getStringExtra("requestStatus");
-        if (status.equals("Invoice Sent") || status.equals("Paid") || status.equals("Supply Confirmed")) {
-            btn_submit.setVisibility(View.GONE);
-            edt_price.setVisibility(View.GONE);
-        }
 
         switch (product) {
             case "T-shirts": unitprice = 400; break;
@@ -95,7 +90,7 @@ public class Accept extends AppCompatActivity {
             default: unitprice = 0; break;
         }
 
-        btn_submit.setOnClickListener(v -> handleSubmit());
+        btn_submit_price.setOnClickListener(v -> handleSubmit());
         btn_printfile.setOnClickListener(v -> printInvoice());
     }
 

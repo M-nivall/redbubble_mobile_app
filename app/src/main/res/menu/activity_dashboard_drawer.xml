@@ -86,7 +86,7 @@
             android:title="My Feedback" />
         <item
             android:id="@+id/nav_supplies"
-            android:title="Supply Request" />
+            android:title="Supply Requests" />
         <item
             android:id="@+id/nav_logout"
             android:title="Logout" />

@@ -88,6 +88,9 @@
             android:id="@+id/nav_supplies"
             android:title="Supply Requests" />
         <item
+            android:id="@+id/nav_awaiting_arrival"
+            android:title="Awaiting Stock Arrival" />
+        <item
             android:id="@+id/nav_logout"
             android:title="Logout" />
 

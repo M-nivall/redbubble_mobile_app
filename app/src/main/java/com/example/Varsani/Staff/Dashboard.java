@@ -38,6 +38,7 @@ import com.example.Varsani.Staff.ServMrg.QuotationRequests;
 import com.example.Varsani.Staff.ServMrg.ServiceCompleted;
 import com.example.Varsani.Staff.ShippingMrg.OrdersToShip;
 import com.example.Varsani.Staff.ShippingMrg.ShippingOrders;
+import com.example.Varsani.Staff.Store_mrg.AwaitingStockArrival;
 import com.example.Varsani.Staff.Store_mrg.RequestItems;
 import com.example.Varsani.Staff.Store_mrg.RequestedMaterials;
 import com.example.Varsani.Staff.Store_mrg.ViewStock;
@@ -184,7 +185,12 @@ public class Dashboard extends AppCompatActivity {
                     Intent im = new Intent(getApplicationContext(), RequestItems.class);
                     startActivity(im);
 
-                } else if (id == R.id.nav_logout) {
+                } else if (id == R.id.nav_awaiting_arrival) {
+                    Intent im = new Intent(getApplicationContext(), AwaitingStockArrival.class);
+                    startActivity(im);
+
+                }
+                else if (id == R.id.nav_logout) {
                     alertLogout();
                 }
 
@@ -286,6 +292,7 @@ public class Dashboard extends AppCompatActivity {
         navigationView.getMenu().findItem(R.id.nav_delivered_orders).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_stock).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_supplies).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_awaiting_arrival).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_quot_requests).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_quot_visit).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_assigned_services).setVisible(false);
@@ -324,6 +331,7 @@ public class Dashboard extends AppCompatActivity {
             } else if (user.getUser_type().equals("Stock manager")) {
                 //navigationView.getMenu().findItem(R.id.nav_stock).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_supplies).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_awaiting_arrival).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_materials).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_tools).setVisible(true);
 

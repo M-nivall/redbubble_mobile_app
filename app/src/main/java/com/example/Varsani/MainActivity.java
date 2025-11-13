@@ -30,6 +30,7 @@ import com.example.Varsani.Clients.Orders_hist;
 import com.example.Varsani.Clients.Profile;
 import com.example.Varsani.Clients.Register;
 import com.example.Varsani.R;
+import com.example.Varsani.Suppliers.ApprovedSupplies;
 import com.example.Varsani.Suppliers.MyRequests;
 import com.example.Varsani.Suppliers.RegSuppliers;
 import com.example.Varsani.Suppliers.Requests;
@@ -131,7 +132,12 @@ public class MainActivity extends AppCompatActivity {
                     Intent nr = new Intent(getApplicationContext(), MyRequests.class);
                     startActivity(nr);
 
-                } else if (id == R.id.nav_register) {
+                } else if (id == R.id.nav_approved_supplies) {
+                    Intent nr = new Intent(getApplicationContext(), ApprovedSupplies.class);
+                    startActivity(nr);
+
+                }
+                else if (id == R.id.nav_register) {
                     Intent intent = new Intent(getApplicationContext(), Register.class);
                     startActivity(intent);
 
@@ -241,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_orders).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_request).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_approved_supplies).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_reg_supplier).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_bookings).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_my_bookings).setVisible(false);
@@ -269,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
                 navigationView.getMenu().findItem(R.id.nav_feedback).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_request).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_approved_supplies).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_invoice).setVisible(false);
             }
             // else if (...) { // add more roles here when needed

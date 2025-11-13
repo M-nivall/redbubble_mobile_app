@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Staff.Store_mrg.ApproveSupply">
+    tools:context=".Staff.Store_mrg.ConfirmSupply">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Approve Request"
+            android:text="Confirm Supply"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
@@ -133,7 +133,7 @@
                     android:id="@+id/btn_submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Aprove Supply Request"
+                    android:text="Confirm Supply"
                     android:textSize="18sp"
                     android:textColor="@android:color/white"
                     android:backgroundTint="@color/btn_color"

@@ -56,6 +56,7 @@ public class Urls {
     public static final String URL_REG_SUPPLIERS= ROOT_URL+"supplier/reg_supplier.php";
     public static final String URL_REQUEST_STOCK=ROOT_URL + "stock_mrg/send_requests.php";
     public static final String URL_MY_REQUESTS= ROOT_URL+"supplier/my_requests.php";
+    public static final String URL_APPROVED_REQUESTS= ROOT_URL+"supplier/approved_requests.php";
     public static final String URL_ACCEPT= ROOT_URL+"supplier/approve_items.php";
    // orders
     public static final String URL_SUBMIT_ORDER = ROOT_URL+"client/submit_order.php";
@@ -95,7 +96,6 @@ public class Urls {
     public static final String URL_SHIPPING_ORDERS=ROOT_URL + "ship_mrg/shipping_orders.php";
     public static final String URL_APPROVE_TENDER=ROOT_URL + "ship_mrg/approve_tender.php";
 
-
     //Service   Manager
     public static final String URL_QUOTATION_REQUEST=ROOT_URL + "serv_mrg/quot_requests.php";
     public static final String URL_QUOTATION_ITEMS=ROOT_URL + "quot_items.php";
@@ -132,6 +132,8 @@ public class Urls {
     public static final String URL_SUPPLIER=ROOT_URL + "stock_mrg/suppliers.php";
     public static final String URL_SEND_REQUEST=ROOT_URL + "stock_mrg/send_requests.php";
     public static final String URL_REQUESTS=ROOT_URL + "stock_mrg/request.php";
+    public static final String URL_AWAITING_ARRIVALS=ROOT_URL + "stock_mrg/awaiting_arrival.php";
+    public static final String URL_APPROVE_SUPPLY=ROOT_URL + "stock_mrg/confirm_supply.php";
     public static final String URL_REQUESTMATERIALS=ROOT_URL + "stock_mrg/material_request.php";
     public static final String URL_APPROVE_MATERIALS=ROOT_URL + "ship_mrg/approve_materials.php";
     public static final String URL_GET_TOOLS=ROOT_URL + "stock_mrg/tools.php";

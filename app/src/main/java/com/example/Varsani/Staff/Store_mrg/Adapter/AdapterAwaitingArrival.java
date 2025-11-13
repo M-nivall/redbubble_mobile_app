@@ -11,17 +11,15 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.Varsani.Clients.Models.UserModel;
 import com.example.Varsani.R;
-import com.example.Varsani.Staff.Finance.OrderDetails;
-import com.example.Varsani.Staff.Models.ClientOrderModel;
 import com.example.Varsani.Staff.Store_mrg.ApproveSupply;
+import com.example.Varsani.Staff.Store_mrg.ConfirmSupply;
 import com.example.Varsani.Staff.Store_mrg.Model.RequestModel;
-import com.example.Varsani.utils.SessionHandler;
 
 import java.util.List;
 
-public class AdapterRequest extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterAwaitingArrival extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
 
     private List<RequestModel> items;
 
@@ -43,7 +41,7 @@ public class AdapterRequest extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //        this.onMoreButtonClickListener = onMoreButtonClickListener;
 //    }
 
-    public AdapterRequest(Context context, List<RequestModel> items) {
+    public AdapterAwaitingArrival(Context context, List<RequestModel> items) {
         this.items = items;
         ctx = context;
     }
@@ -71,15 +69,15 @@ public class AdapterRequest extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lv_request, parent, false);
-        vh = new OriginalViewHolder(v);
+        vh = new AdapterAwaitingArrival.OriginalViewHolder(v);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof OriginalViewHolder) {
-            final OriginalViewHolder view = (OriginalViewHolder) holder;
+        if (holder instanceof AdapterAwaitingArrival.OriginalViewHolder) {
+            final AdapterAwaitingArrival.OriginalViewHolder view = (AdapterAwaitingArrival.OriginalViewHolder) holder;
 
             final RequestModel o= items.get(position);
 
@@ -94,9 +92,9 @@ public class AdapterRequest extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 @Override
                 public void onClick(View view) {
                     // Check if the request status is "Invoice sent"
-                    if (o.getRequestStatus().equalsIgnoreCase("Pending approval")) {
+                    if (o.getRequestStatus().equalsIgnoreCase("Supplied")) {
                         // Navigate to ApproveSupply activity
-                        Intent in = new Intent(ctx, ApproveSupply.class);
+                        Intent in = new Intent(ctx, ConfirmSupply.class);
                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         in.putExtra("requestID", o.getRequestID());
                         in.putExtra("item", o.getItems());
@@ -112,7 +110,7 @@ public class AdapterRequest extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         ctx.startActivity(in);
                     } else {
                         // Optionally, show a message to the user indicating that action is not allowed
-                        Toast.makeText(ctx, "Awaiting stock from the supplier: " + o.getRequestStatus(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ctx, "Awaiting Arrival: " + o.getRequestStatus(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

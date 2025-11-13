@@ -272,6 +272,7 @@ public class MakePayment extends AppCompatActivity {
         final String reference = edt_mpesaCode.getText().toString().trim();
         final String method    = rb_mpesa.isChecked() ? "mpesa" : "bank";
 
+
         final String expected_date=edt_expected_date.getText().toString().trim();
 
         // delivery validation
@@ -296,7 +297,8 @@ public class MakePayment extends AppCompatActivity {
 
         // build values to send
         String orderCost    = String.valueOf(parseLongSafe(totalAmount));
-        String shippingCost = String.valueOf(DEFAULT_SHIPPING_FEE);
+        //String shippingCost = String.valueOf(DEFAULT_SHIPPING_FEE);
+        String shippingCost = rb_shipping_yes.isChecked() ? String.valueOf(DEFAULT_SHIPPING_FEE) : "0";
         String totalCost    = grandTotal; // items + shipping
 
         StringRequest req = new StringRequest(

@@ -14,6 +14,7 @@ import com.example.Varsani.R;
 import com.example.Varsani.Suppliers.Accept;
 import com.example.Varsani.Suppliers.Model.ApprovedRequestModel;
 import com.example.Varsani.Suppliers.Model.MyRequetsModel;
+import com.example.Varsani.Suppliers.Supply;
 
 import java.util.List;
 
@@ -88,7 +89,7 @@ public class AdapterApprovedRequest extends RecyclerView.Adapter<RecyclerView.Vi
                 @Override
                 public void onClick(View view) {
 
-                    Intent in=new Intent(ctx, Accept.class);
+                    Intent in=new Intent(ctx, Supply.class);
                     in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     in.putExtra("requestID", o.getRequestID());
                     in.putExtra("item",o.getItems());
@@ -98,6 +99,7 @@ public class AdapterApprovedRequest extends RecyclerView.Adapter<RecyclerView.Vi
                     in.putExtra("color",o.getColor());
                     in.putExtra("unitPrice",o.getUnitPrice());
                     in.putExtra("totalAmount",o.getTotalAmount());
+                    in.putExtra("bidID",o.getBidID());
                     ctx.startActivity(in);
 
                 }

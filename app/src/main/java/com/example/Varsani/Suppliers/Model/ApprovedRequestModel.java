@@ -10,11 +10,12 @@ public class ApprovedRequestModel {
     private String color;
     private String unitPrice;
     private String totalAmount;
+    private String bidID;
 
 
     public ApprovedRequestModel(String requestID, String items,
                           String requestDate, String requestStatus, String quantity,
-                                String color, String unitPrice, String totalAmount) {
+                                String color, String unitPrice, String totalAmount, String bidID) {
         this.requestID = requestID;
         this.items = items;
         this.quantity= quantity;
@@ -23,6 +24,7 @@ public class ApprovedRequestModel {
         this.color = color;
         this.unitPrice = unitPrice;
         this.totalAmount = totalAmount;
+        this.bidID = bidID;
     }
 
     public String getRequestID() {
@@ -53,7 +55,6 @@ public class ApprovedRequestModel {
     public String getUnitPrice() {
         return unitPrice;
     }
-    public String getTotalAmount() {
-        return totalAmount;
-    }
+    public String getTotalAmount() {return totalAmount;}
+    public String getBidID() {return bidID;}
 }

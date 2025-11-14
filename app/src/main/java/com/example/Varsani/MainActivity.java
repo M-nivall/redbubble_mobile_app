@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                 navigationView.getMenu().findItem(R.id.nav_feedback).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_request).setVisible(true);
-                navigationView.getMenu().findItem(R.id.nav_approved_supplies).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_approved_supplies).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_invoice).setVisible(false);
             }
             // else if (...) { // add more roles here when needed

@@ -106,9 +106,10 @@ public class ApprovedSupplies extends AppCompatActivity {
 
                                     String unitPrice=jsn.getString("unitPrice");
                                     String totalAmount=jsn.getString("totalAmount");
+                                    String bidID=jsn.getString("bidID");
 
                                     ApprovedRequestModel arm=new ApprovedRequestModel(requestID, items,  requestDate,  requestStatus,
-                                            quantity, color, unitPrice, totalAmount);
+                                            quantity, color, unitPrice, totalAmount, bidID);
                                     list.add(arm);
                                 }
                                 adapter=new AdapterApprovedRequest(getApplicationContext(),list);

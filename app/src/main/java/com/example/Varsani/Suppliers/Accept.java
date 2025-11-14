@@ -84,8 +84,8 @@ public class Accept extends AppCompatActivity {
 
 
         switch (product) {
-            case "T-shirts": unitprice = 400; break;
-            case "Hoodies": unitprice = 800; break;
+            case "T-shirts": unitprice = 700; break;
+            case "Hoodies": unitprice = 1000; break;
             case "Caps": unitprice = 200; break;
             default: unitprice = 0; break;
         }

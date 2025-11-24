@@ -11,11 +11,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +42,7 @@ import java.util.Map;
 
 public class PaySupplier extends AppCompatActivity {
     private TextView txv_id,txv_supplierName,txv_amount,txv_amount2,txv_paymentdesc,txv_paymentstatus,txv_payment_date;
+    private EditText edt_paymentCode;
 
     private Button btn_submit;
     private ProgressBar progressBar;
@@ -62,9 +66,12 @@ public class PaySupplier extends AppCompatActivity {
 
         progressBar=findViewById(R.id.progressBar);
         btn_submit=findViewById(R.id.paysupplier);
+        edt_paymentCode = findViewById(R.id.edt_paymentCode);
 
 
         progressBar.setVisibility(View.GONE);
+
+        edt_paymentCode.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
 
         Intent in=getIntent();
         id=in.getStringExtra("id");
@@ -88,6 +95,27 @@ public class PaySupplier extends AppCompatActivity {
     }
 
     public void approve(){
+        final  String paymentRef=edt_paymentCode.getText().toString().trim();
+
+        if(TextUtils.isEmpty(paymentRef)){
+            Toast.makeText(getApplicationContext(),"Please enter your Payment Reference Code",Toast.LENGTH_SHORT).show();
+            //progressBar.setVisibility(View.GONE);
+            //btn_checkout.setVisibility(View.VISIBLE);
+            return;
+        }
+        if(!paymentRef.matches("^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]+$")){
+            Toast.makeText(getApplicationContext(), "Payment code should have  characters and digit",
+                    Toast.LENGTH_LONG).show();
+            //btn_checkout.setVisibility(View.VISIBLE);
+            //progressBar.setVisibility(View.GONE);
+            return;
+        }
+        if(paymentRef.length()>10 ||paymentRef.length()<10){
+            Toast.makeText(getApplicationContext(), "Payment code  should contain 10 digits", Toast.LENGTH_SHORT).show();
+            //btn_checkout.setVisibility(View.VISIBLE);
+            //progressBar.setVisibility(View.GONE);
+            return;
+        }
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL_PAY_SUPPLIER,
                 new Response.Listener<String>() {
                     @Override

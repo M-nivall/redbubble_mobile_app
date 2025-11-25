@@ -19,6 +19,47 @@
             android:orientation="vertical"
             android:gravity="center">
 
+            <!-- ===================== HEADER ===================== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorPrimary"
+                android:padding="18dp"
+                android:elevation="6dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_company_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Redbubble Merchandise"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:letterSpacing="0.05" />
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nairobi, Kenya"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:paddingTop="4dp" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tel: +254 778 760064"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:paddingTop="2dp" />
+            </LinearLayout>
+            <!-- ================== END HEADER ===================== -->
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,7 +137,7 @@
                         android:background="@color/gray"
                         android:layout_marginVertical="10dp" />
 
-                    <!-- Invoice Section - Initially Gone -->
+                    <!-- Invoice Section -->
                     <LinearLayout
                         android:id="@+id/layout_invoice"
                         android:layout_width="match_parent"
@@ -154,12 +195,12 @@
                             android:layout_marginVertical="10dp" />
 
                         <Button
+                            android:id="@+id/btn_submit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/btn_color"
                             android:text=" Confirm Supply &amp; Send Invoice"
                             android:layout_margin="25dp"
-                            android:id="@+id/btn_submit"
                             android:textColor="@color/white"/>
                     </LinearLayout>
 
